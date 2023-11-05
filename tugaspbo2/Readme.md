@@ -1,7 +1,7 @@
 # CONSTRUCTOR 
 Constructor adalah method khusus yang akan dieksekusi pada saat pembuatan objek (instance). Biasanya method ini digunakan untuk inisialisasi atau mempersiapkan data untuk objek.
 
-# STEPS PROJECT 
+# STEPS  
 1. Membuat rancangan hirarki class heritance
 2. Membuat kelas induk atau superclass, lalu memasukkan atribut dan method lalu di getter setter dan membuat construktor
 3. Membuat subclass vertebrata dan invertebrata yang extends ke class Hewan dan membuat construktor super
