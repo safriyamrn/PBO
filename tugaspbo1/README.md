@@ -7,7 +7,7 @@ Modifier PRIVATE akan membuat member atau anggota hanya dapat diakses oleh class
 # PROTECTED
 Modifier PROTECTED dapat mengakses member dalam sebuah class melalui class itu sendiri, class turunannya, dan class yang berada dalam satu package
 
-# Steps Project 1
+# Steps
 1. Membuat Project baru
 Sebelum memulai, langkah awal yakni membuat project baru pada netbeans dengan kategori java with ant lalu memilih project java application
 2. Menamai Project dan Memulai Class
