@@ -63,7 +63,7 @@ public class Buku implements Serializable {
         this.isbn = isbn;
     }
 
-    public String getJudulBuku() {
+    public String getjudul_buku() {
         return judulBuku;
     }
 
@@ -71,7 +71,7 @@ public class Buku implements Serializable {
         this.judulBuku = judulBuku;
     }
 
-    public String getSubJudul() {
+    public String getsub_judul() {
         return subJudul;
     }
 
@@ -95,7 +95,7 @@ public class Buku implements Serializable {
         this.penerbit = penerbit;
     }
 
-    public String getTahunTerbit() {
+    public String gettahun_terbit() {
         return tahunTerbit;
     }
 
@@ -103,7 +103,7 @@ public class Buku implements Serializable {
         this.tahunTerbit = tahunTerbit;
     }
 
-    public String getJumlahHalaman() {
+    public String getjumlah_halaman() {
         return jumlahHalaman;
     }
 

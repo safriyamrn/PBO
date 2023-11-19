@@ -13,7 +13,6 @@ import javax.swing.JFrame;
  * @author Safriya Murni
  */
 public class MenuUtama extends javax.swing.JFrame {
-    
 
     public MenuUtama() {
         initComponents();
@@ -53,8 +52,12 @@ public class MenuUtama extends javax.swing.JFrame {
         jPanelLaporan = new javax.swing.JPanel();
         jPanelLineLaporan = new javax.swing.JPanel();
         jLabelIconDashboard2 = new javax.swing.JLabel();
-        jLabelDashboard2 = new javax.swing.JLabel();
+        jLabelLaporanBuku = new javax.swing.JLabel();
         jLabelLaporan = new javax.swing.JLabel();
+        jPanelLaporan1 = new javax.swing.JPanel();
+        jPanelLineLaporan1 = new javax.swing.JPanel();
+        jLabelIconDashboard3 = new javax.swing.JLabel();
+        jLabelLaporanSkripsi = new javax.swing.JLabel();
         jPanelkanan = new javax.swing.JPanel();
         jPanelNavbar = new javax.swing.JPanel();
         jPanelDasar = new javax.swing.JPanel();
@@ -119,12 +122,12 @@ public class MenuUtama extends javax.swing.JFrame {
         jPanelDashboardLayout.setHorizontalGroup(
             jPanelDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDashboardLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanelLine, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelIconDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
+                .addComponent(jLabelDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelDashboardLayout.setVerticalGroup(
             jPanelDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,12 +186,13 @@ public class MenuUtama extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jLabelIconBuku)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelBuku, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabelBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelBukuLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jPanelLineBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(126, Short.MAX_VALUE)))
+                    .addContainerGap(162, Short.MAX_VALUE)))
         );
         jPanelBukuLayout.setVerticalGroup(
             jPanelBukuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,12 +248,13 @@ public class MenuUtama extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jLabelIconSkripsi)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelSkripsi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabelSkripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanelSkripsiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelSkripsiLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jPanelLineSkripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(126, Short.MAX_VALUE)))
+                    .addContainerGap(158, Short.MAX_VALUE)))
         );
         jPanelSkripsiLayout.setVerticalGroup(
             jPanelSkripsiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,7 +323,8 @@ public class MenuUtama extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelIconPeminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelPeminjaman, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
+                .addComponent(jLabelPeminjaman, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelPeminjamanLayout.setVerticalGroup(
             jPanelPeminjamanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -380,7 +386,8 @@ public class MenuUtama extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelIconPengembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelPengembalian, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
+                .addComponent(jLabelPengembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelPengembalianLayout.setVerticalGroup(
             jPanelPengembalianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -417,18 +424,18 @@ public class MenuUtama extends javax.swing.JFrame {
         jLabelIconDashboard2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelIconDashboard2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/print_1.png"))); // NOI18N
 
-        jLabelDashboard2.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabelDashboard2.setForeground(new java.awt.Color(153, 153, 153));
-        jLabelDashboard2.setText("Cetak");
-        jLabelDashboard2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabelLaporanBuku.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabelLaporanBuku.setForeground(new java.awt.Color(153, 153, 153));
+        jLabelLaporanBuku.setText("Laporan Buku");
+        jLabelLaporanBuku.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelDashboard2MouseClicked(evt);
+                jLabelLaporanBukuMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabelDashboard2MouseEntered(evt);
+                jLabelLaporanBukuMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabelDashboard2MouseExited(evt);
+                jLabelLaporanBukuMouseExited(evt);
             }
         });
 
@@ -437,12 +444,12 @@ public class MenuUtama extends javax.swing.JFrame {
         jPanelLaporanLayout.setHorizontalGroup(
             jPanelLaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLaporanLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanelLineLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelIconDashboard2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelDashboard2, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
+                .addComponent(jLabelLaporanBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelLaporanLayout.setVerticalGroup(
             jPanelLaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,7 +458,7 @@ public class MenuUtama extends javax.swing.JFrame {
                 .addGroup(jPanelLaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelIconDashboard2)
                     .addComponent(jPanelLineLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addComponent(jLabelDashboard2, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+            .addComponent(jLabelLaporanBuku, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
         jLabelLaporan.setBackground(new java.awt.Color(255, 255, 255));
@@ -459,6 +466,70 @@ public class MenuUtama extends javax.swing.JFrame {
         jLabelLaporan.setForeground(new java.awt.Color(153, 153, 153));
         jLabelLaporan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelLaporan.setText("LAPORAN");
+
+        jPanelLaporan1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelLaporan1.setPreferredSize(new java.awt.Dimension(100, 35));
+        jPanelLaporan1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelLaporan1MouseClicked(evt);
+            }
+        });
+
+        jPanelLineLaporan1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelLineLaporan1.setPreferredSize(new java.awt.Dimension(100, 35));
+
+        javax.swing.GroupLayout jPanelLineLaporan1Layout = new javax.swing.GroupLayout(jPanelLineLaporan1);
+        jPanelLineLaporan1.setLayout(jPanelLineLaporan1Layout);
+        jPanelLineLaporan1Layout.setHorizontalGroup(
+            jPanelLineLaporan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 8, Short.MAX_VALUE)
+        );
+        jPanelLineLaporan1Layout.setVerticalGroup(
+            jPanelLineLaporan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 21, Short.MAX_VALUE)
+        );
+
+        jLabelIconDashboard3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelIconDashboard3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/print_1.png"))); // NOI18N
+
+        jLabelLaporanSkripsi.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabelLaporanSkripsi.setForeground(new java.awt.Color(153, 153, 153));
+        jLabelLaporanSkripsi.setText("Laporan Skripsi");
+        jLabelLaporanSkripsi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLaporanSkripsiMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabelLaporanSkripsiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabelLaporanSkripsiMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelLaporan1Layout = new javax.swing.GroupLayout(jPanelLaporan1);
+        jPanelLaporan1.setLayout(jPanelLaporan1Layout);
+        jPanelLaporan1Layout.setHorizontalGroup(
+            jPanelLaporan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelLaporan1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelLineLaporan1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelIconDashboard3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelLaporanSkripsi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanelLaporan1Layout.setVerticalGroup(
+            jPanelLaporan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelLaporan1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelLaporan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelIconDashboard3)
+                    .addComponent(jPanelLineLaporan1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(8, Short.MAX_VALUE))
+            .addComponent(jLabelLaporanSkripsi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanelkiriLayout = new javax.swing.GroupLayout(jPanelkiri);
         jPanelkiri.setLayout(jPanelkiriLayout);
@@ -478,18 +549,21 @@ public class MenuUtama extends javax.swing.JFrame {
                             .addContainerGap()
                             .addGroup(jPanelkiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabelLaporan)
-                                .addGroup(jPanelkiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPanelDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                                    .addComponent(jPanelBuku, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                                    .addComponent(jPanelSkripsi, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                                    .addComponent(jLabelTransaksi)
-                                    .addComponent(jPanelPeminjaman, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                                    .addComponent(jPanelLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                                    .addComponent(jPanelPengembalian, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)))))
+                                .addComponent(jLabelTransaksi)
+                                .addGroup(jPanelkiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jPanelLaporan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                                    .addComponent(jPanelLaporan1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+                                .addGroup(jPanelkiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jPanelBuku, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, Short.MAX_VALUE)
+                                    .addComponent(jPanelSkripsi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                                    .addComponent(jPanelPeminjaman, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                                    .addComponent(jPanelPengembalian, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
+                                .addComponent(jPanelDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(115, 115, 115)))
                     .addGroup(jPanelkiriLayout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addComponent(jLabelISCO, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelkiriLayout.setVerticalGroup(
             jPanelkiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -516,7 +590,9 @@ public class MenuUtama extends javax.swing.JFrame {
                 .addComponent(jLabelLaporan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(316, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanelLaporan1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(269, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanelkiri, java.awt.BorderLayout.LINE_START);
@@ -631,7 +707,13 @@ public class MenuUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelBukuMouseClicked
 
     private void jLabelPeminjamanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPeminjamanMouseClicked
-        // TODO add your handling code here:
+        jPanelDashboard.setBackground(new Color(250, 250, 250));
+        jPanelLine.setBackground(new Color(0, 204, 204));
+
+        jPanelUtama.removeAll();
+        jPanelUtama.add(new MenuPeminjaman());
+        jPanelUtama.repaint();
+        jPanelUtama.revalidate();
     }//GEN-LAST:event_jLabelPeminjamanMouseClicked
 
     private void jLabelPeminjamanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPeminjamanMouseEntered
@@ -648,19 +730,25 @@ public class MenuUtama extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanelPeminjamanMouseClicked
 
-    private void jLabelDashboard2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDashboard2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabelDashboard2MouseClicked
+    private void jLabelLaporanBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLaporanBukuMouseClicked
+        jPanelDashboard.setBackground(new Color(250, 250, 250));
+        jPanelLine.setBackground(new Color(0, 204, 204));
 
-    private void jLabelDashboard2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDashboard2MouseEntered
+        jPanelUtama.removeAll();
+        jPanelUtama.add(new MenuLaporanBk());
+        jPanelUtama.repaint();
+        jPanelUtama.revalidate();
+    }//GEN-LAST:event_jLabelLaporanBukuMouseClicked
+
+    private void jLabelLaporanBukuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLaporanBukuMouseEntered
         jPanelLaporan.setBackground(new Color(250, 250, 250));
         jPanelLineLaporan.setBackground(new Color(0, 204, 204));
-    }//GEN-LAST:event_jLabelDashboard2MouseEntered
+    }//GEN-LAST:event_jLabelLaporanBukuMouseEntered
 
-    private void jLabelDashboard2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDashboard2MouseExited
+    private void jLabelLaporanBukuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLaporanBukuMouseExited
         jPanelLaporan.setBackground(new Color(255, 255, 255));
         jPanelLineLaporan.setBackground(new Color(255, 255, 255));
-    }//GEN-LAST:event_jLabelDashboard2MouseExited
+    }//GEN-LAST:event_jLabelLaporanBukuMouseExited
 
     private void jPanelLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelLaporanMouseClicked
         // TODO add your handling code here:
@@ -694,11 +782,27 @@ public class MenuUtama extends javax.swing.JFrame {
         jPanelUtama.revalidate();
     }//GEN-LAST:event_jLabelSkripsiMouseClicked
 
+    private void jLabelLaporanSkripsiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLaporanSkripsiMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelLaporanSkripsiMouseClicked
+
+    private void jLabelLaporanSkripsiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLaporanSkripsiMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelLaporanSkripsiMouseEntered
+
+    private void jLabelLaporanSkripsiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLaporanSkripsiMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelLaporanSkripsiMouseExited
+
+    private void jPanelLaporan1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelLaporan1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanelLaporan1MouseClicked
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MenuUtama().setVisible(true);
@@ -709,16 +813,18 @@ public class MenuUtama extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelBuku;
     private javax.swing.JLabel jLabelDashboard;
-    private javax.swing.JLabel jLabelDashboard2;
     private javax.swing.JLabel jLabelISCO;
     private javax.swing.JLabel jLabelIconBuku;
     private javax.swing.JLabel jLabelIconDashboard;
     private javax.swing.JLabel jLabelIconDashboard2;
+    private javax.swing.JLabel jLabelIconDashboard3;
     private javax.swing.JLabel jLabelIconPeminjaman;
     private javax.swing.JLabel jLabelIconPengembalian;
     private javax.swing.JLabel jLabelIconSkripsi;
     private javax.swing.JLabel jLabelKepanjangan;
     private javax.swing.JLabel jLabelLaporan;
+    private javax.swing.JLabel jLabelLaporanBuku;
+    private javax.swing.JLabel jLabelLaporanSkripsi;
     private javax.swing.JLabel jLabelPeminjaman;
     private javax.swing.JLabel jLabelPengembalian;
     private javax.swing.JLabel jLabelSkripsi;
@@ -728,9 +834,11 @@ public class MenuUtama extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelDasar;
     private javax.swing.JPanel jPanelDashboard;
     private javax.swing.JPanel jPanelLaporan;
+    private javax.swing.JPanel jPanelLaporan1;
     private javax.swing.JPanel jPanelLine;
     private javax.swing.JPanel jPanelLineBuku;
     private javax.swing.JPanel jPanelLineLaporan;
+    private javax.swing.JPanel jPanelLineLaporan1;
     private javax.swing.JPanel jPanelLinePeminjaman;
     private javax.swing.JPanel jPanelLinePengembalian;
     private javax.swing.JPanel jPanelLineSkripsi;

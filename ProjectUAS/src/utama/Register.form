@@ -91,10 +91,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextFieldNomorInduk" min="-2" pref="198" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jTextFieldNomorInduk" alignment="1" min="-2" pref="198" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jButtonBatal" min="-2" max="-2" attributes="0"/>

@@ -237,7 +237,7 @@ public class Register extends javax.swing.JFrame {
         em.getTransaction().commit();
         em.close();
         
-        JOptionPane.showMessageDialog(this, "Login Anda sukses");
+        JOptionPane.showMessageDialog(this, "Register Anda berhasil");
 
                 new LoginFrame().setVisible(true);
                 this.dispose();
