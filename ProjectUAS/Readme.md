@@ -65,3 +65,32 @@ report kali ini dapat dicetak berdasarkan apa yang kita cari.
 ![Screenshot 2023-11-19 222455](https://github.com/safriyamrn/PBO/assets/148854440/1a5ba999-1036-4cfb-a1f6-9c2ba9f4da69)
 
 ![Screenshot 2023-11-19 222445](https://github.com/safriyamrn/PBO/assets/148854440/b5b5b879-d588-4967-b290-667fd475dd12)
+
+Kali ini saya melanjutkan progres nya 
+
+12. Pada progress sebelumnya saya telah menyelesaikan mencetak sebuauh laporan 
+menggunakan jasper report dan mencetak berdasarkan sorting by. Pada progress kali ini 
+saya ingin menambahkan parameter yang dapat muncul pada saat laporan di cetak supaya 
+dapat mengetahui hasil cetakan tersebut berdasarkan sorting apa. Pertama kita membuat parameter baru pada button cetak
+![Screenshot 2023-11-26 230518](https://github.com/safriyamrn/PBO/assets/148854440/eafda4c6-f7f2-4a94-83d2-7cfd7887f996)
+
+13. Tapi sebelumnya kita harus mendeklarasikan terlebih dahulu
+![Screenshot 2023-11-26 230618](https://github.com/safriyamrn/PBO/assets/148854440/178009c4-99df-4de8-bda1-ee92c36a99ec)
+
+14. Setelah sudah, kita menuju ke design jasper dan klik report inspector lalu klik kanan pada 
+menu parameter lalu klik add parameter
+![Screenshot 2023-11-26 230755](https://github.com/safriyamrn/PBO/assets/148854440/40e3f6a2-b7f0-4e24-ab36-f588b5318162)
+
+15. Kemudian menambah parameter dengan penamaan sesuai query tadi yakni querySearch 
+dan searchBy
+![Screenshot 2023-11-26 230826](https://github.com/safriyamrn/PBO/assets/148854440/6bfae9c9-6a96-4e03-aed9-6e4bc3be9ebe)
+
+16. Setelah itu pada design jasper beri textField static untuk memanggil parameter
+![Screenshot 2023-11-26 231048](https://github.com/safriyamrn/PBO/assets/148854440/aabc1a02-39bb-4560-bbca-36219af649c2)
+
+17. Kemudian lakukan clean and build lalu run project
+![Screenshot 2023-11-26 231231](https://github.com/safriyamrn/PBO/assets/148854440/2c8b8ac7-c403-43eb-a2b9-ef1b42464485)
+
+Maka hasil dari query tersebut menunjukkan bahwa report yang dicetak adalah 
+berdasarkan Judul Buku yang memiliki kata ‘Ma'
+
