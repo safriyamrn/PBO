@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ab4abe95-c5fc-4b51-9479-597d82a685cf">
+	<property name="ireport.zoom" value="2.8531167061100033"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="185"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM skripsi]]>
+	</queryString>
+	<field name="id_skripsi" class="java.lang.String"/>
+	<field name="judul_skripsi" class="java.lang.String"/>
+	<field name="sub_judul" class="java.lang.String"/>
+	<field name="pengarang" class="java.lang.String"/>
+	<field name="tahun_terbit" class="java.lang.String"/>
+	<field name="jumlah_halaman" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="120" splitType="Stretch">
+			<staticText>
+				<reportElement x="101" y="0" width="373" height="35" uuid="7ce20db3-2c70-4357-8f44-744afd9c6067"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORMATION SYSTEM CLOUD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="35" width="373" height="20" uuid="66e2eddb-450d-4b65-b49d-9fa7d367d05d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Jl. Pattimura No.232, Kel. Kentengsari, Kec. Kedung Jati]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="55" width="373" height="24" uuid="e89066d5-3fdb-46df-b64b-26399dafe37d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Kabupaten Grobogan, Jawa Tengah
+]]></text>
+			</staticText>
+			<image>
+				<reportElement x="14" y="-10" width="87" height="89" uuid="ff682949-4674-4e6f-b0c6-7484d8aff23e"/>
+				<imageExpression><![CDATA["C:\\Users\\Safriya Murni\\OneDrive\\Pictures\\LOGO BUKU.jpg"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="0" y="79" width="555" height="1" uuid="3adffec4-f816-44da-9033-b04571b6ee1c"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

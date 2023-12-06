@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ad6dc87a-6d88-4c9d-b048-51f40559dff8">
+	<property name="ireport.zoom" value="0.9090909090909095"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="13"/>
+	<parameter name="querySearch" class="java.lang.String"/>
+	<parameter name="searchBy" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM peminjamanskripsi]]>
+	</queryString>
+	<field name="idpinjam" class="java.lang.String"/>
+	<field name="nama" class="java.lang.String"/>
+	<field name="prodi" class="java.lang.String"/>
+	<field name="semester" class="java.lang.String"/>
+	<field name="angkatan" class="java.lang.String"/>
+	<field name="idskripsi.idskripsi" class="java.lang.String"/>
+	<field name="tglpinjam" class="java.util.Date"/>
+	<field name="tglkembali" class="java.util.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="114" splitType="Stretch">
+			<rectangle>
+				<reportElement x="2" y="2" width="553" height="112" backcolor="#009999" uuid="47661315-1714-4834-bcc2-70a4ebc3f520"/>
+				<graphicElement>
+					<pen lineColor="#00CCCC"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="122" y="70" width="395" height="27" forecolor="#FFFFFF" uuid="ea9b7839-2fff-4e8b-bce3-5f0c786c27b9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Kota Jakarta, Jawa Barat, Kode Pos 219379]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="122" y="18" width="395" height="32" forecolor="#FFFFFF" uuid="710244a4-de98-4109-9107-77d7e78303bd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORMATION SYSTEM CLOUD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="122" y="50" width="395" height="20" forecolor="#FFFFFF" uuid="11768597-0d1e-432f-a382-364fc370053c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Jl. Pattimura No.323, Kel. Jatinegara, Kec.Bumiraga. ]]></text>
+			</staticText>
+			<image>
+				<reportElement x="42" y="18" width="79" height="79" uuid="88103ef8-b7b0-40d4-9330-345861b7a987"/>
+				<imageExpression><![CDATA["C:\\Users\\Safriya Murni\\OneDrive\\Documents\\NetBeansProjects\\ProjectUAS\\src\\asset\\icons8_books_50px.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="141" splitType="Stretch">
+			<staticText>
+				<reportElement x="148" y="8" width="271" height="53" uuid="16cac86b-eb62-4142-8e01-7181cc37c411"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAPORAN DATA PEMINJAMAN SKRIPSI ISCO]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="418" y="61" width="136" height="20" uuid="fdab83c3-ed44-4091-837d-7ccb45625cf1"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="419" y="81" width="136" height="20" uuid="dfad4e6c-c7de-4bc9-94cd-2fc0b945d051"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-1" y="109" width="555" height="29" uuid="aa34cc5e-c9c3-4d06-86b4-c75420d81d92"/>
+				<textFieldExpression><![CDATA["Hasil pencarian data peminjaman skripsi dari " + $P{querySearch} + " berdasarkan kolom " + $P{searchBy} + " menghasilkan data: "]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="63" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="2" width="555" height="60" backcolor="#009999" uuid="403c58b5-20d3-4e10-9106-8f661eb3f9cd"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="3" width="73" height="59" forecolor="#FFFFFF" uuid="edc87faa-cecc-4b3d-bd01-1610b12a0024"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ID PEMINJAMAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="75" y="3" width="100" height="60" forecolor="#FFFFFF" uuid="0ad57c8c-07e4-4f16-b020-1f2e4c07b871"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[NAMA PEMINJAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="2" width="56" height="60" forecolor="#FFFFFF" uuid="fc1419c0-1b63-49b8-8a92-57fc8058df02"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[PRODI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="231" y="2" width="65" height="60" forecolor="#FFFFFF" uuid="d4db0d5e-da98-434d-811e-c3f15950e00e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[SEMESTER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="3" width="68" height="59" forecolor="#FFFFFF" uuid="59995ad2-6f18-4920-9338-208bf6c680e2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ANGKATAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="364" y="3" width="55" height="59" forecolor="#FFFFFF" uuid="d1ea1190-7d4c-4ef4-b7f9-0c1e826789e4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ID SKRIPSI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="3" width="67" height="59" forecolor="#FFFFFF" uuid="daf794ab-3718-4ffc-940c-0547616ff477"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TANGGAL PINJAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="487" y="3" width="67" height="59" forecolor="#FFFFFF" uuid="56dfe528-b090-4246-a982-5d7cf7982d02"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TANGGAL KEMBALI]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="125" backcolor="#00A8B3" uuid="de3e1d40-8f30-4011-a4a0-cb4fe515ef49"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="2" y="0" width="73" height="125" forecolor="#FFFFFF" uuid="23b36f58-789f-418b-be9f-916deab63144"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{idpinjam}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="0" width="100" height="125" forecolor="#FFFFFF" uuid="4fd3fa63-b384-4c22-a369-348243227c49"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="175" y="0" width="56" height="125" forecolor="#FFFFFF" uuid="ef089bba-76ef-443f-a7de-7e21851cf896"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{prodi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="231" y="0" width="65" height="125" forecolor="#FFFFFF" uuid="3721514f-b122-4995-bdd5-48673a57edf2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{semester}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="296" y="0" width="68" height="125" forecolor="#FFFFFF" uuid="894a0e57-6e60-4b00-80f2-ef940b0eb1dc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{angkatan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="364" y="0" width="55" height="125" forecolor="#FFFFFF" uuid="a9d50c29-2bb8-4ba0-9c1a-cf79ee0fd8aa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{idskripsi.idskripsi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="0" width="67" height="125" forecolor="#FFFFFF" uuid="c5d01f36-dda7-4c5f-b6ec-1fbf7a196d69"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tglpinjam}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="487" y="0" width="67" height="125" forecolor="#FFFFFF" uuid="3e976d5b-c151-45a0-bd39-19200fe5c635"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tglkembali}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

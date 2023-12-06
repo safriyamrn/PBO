@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aa9295c5-bfff-4c73-a44e-6c75643bcda2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="51"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT book.isbn, book.judul, COUNT(peminjaman.idpinjam) AS jumlah_peminjaman
+FROM Peminjaman peminjaman
+JOIN Book book ON peminjaman.isbn = book.isbn
+GROUP BY book.isbn, book.judul
+ORDER BY jumlah_peminjaman DESC]]>
+	</queryString>
+	<field name="isbn" class="java.lang.String"/>
+	<field name="judul" class="java.lang.String"/>
+	<field name="jumlah_peminjaman" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="112" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="112" backcolor="#009999" uuid="8edbad4a-23f7-494c-bfb7-49f67bd3786e"/>
+				<graphicElement>
+					<pen lineColor="#00CCCC"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="120" y="60" width="395" height="27" forecolor="#FFFFFF" uuid="18466988-c28b-4276-8f9e-36d89b8d4dfc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Kota Jakarta, Jawa Barat, Kode Pos 219379]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="8" width="395" height="32" forecolor="#FFFFFF" uuid="19303148-6422-4f9a-816d-8cf6fd75e682"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORMATION SYSTEM CLOUD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="40" width="395" height="20" forecolor="#FFFFFF" uuid="159f1b63-6733-4631-b88f-adf99b69a447"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Jl. Pattimura No.323, Kel. Jatinegara, Kec.Bumiraga. ]]></text>
+			</staticText>
+			<image>
+				<reportElement x="40" y="8" width="79" height="79" uuid="d74505ac-931c-42bb-99c8-5efe942e70f1"/>
+				<imageExpression><![CDATA["C:\\Users\\Safriya Murni\\OneDrive\\Documents\\NetBeansProjects\\ProjectUAS\\src\\asset\\icons8_books_50px.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="124" splitType="Stretch">
+			<staticText>
+				<reportElement x="145" y="7" width="278" height="55" uuid="f43e8d4f-a2c7-46fc-9b8b-795b9cbe0a34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAPORAN DATA PEMINJAMAN BUKU TERBANYAK]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="435" y="42" width="119" height="20" uuid="c79029e4-d03b-4b3c-bcaa-125edac2237a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="453" y="62" width="100" height="20" uuid="e879cb03-2dfb-4873-91b9-9f91f1065e86"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="72" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="71" backcolor="#009999" uuid="3e869bf5-7806-4171-9ea8-945f8ef4ae91"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="1" width="120" height="70" forecolor="#FFFFFF" uuid="52e271f8-9a7b-4734-9d86-ab65b1c2b869"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ISBN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="119" y="1" width="235" height="69" forecolor="#FFFFFF" uuid="2588b623-b17a-4000-94c8-efa156780029"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JUDUL BUKU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="1" width="199" height="69" forecolor="#FFFFFF" uuid="11f3b00c-ae31-4249-97ab-be4ab59fb9c7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JUMLAH PEMINJAMAN]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="127" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="125" backcolor="#00A8B3" uuid="328f9989-0a03-46b7-968e-858d48d14ab3"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="120" height="125" forecolor="#FFFFFF" uuid="c3164b71-e5e1-4576-b1e7-7fd00272391a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{isbn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="119" y="0" width="235" height="125" forecolor="#FFFFFF" uuid="2252582a-d69b-4223-abbb-e5f4d23d2723"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{judul}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="354" y="0" width="199" height="125" forecolor="#FFFFFF" uuid="82554309-e560-4771-bfa5-e18ab105c590"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jumlah_peminjaman}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
