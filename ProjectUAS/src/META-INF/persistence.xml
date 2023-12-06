@@ -3,10 +3,13 @@
   <persistence-unit name="ProjectUASPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>utama.Login</class>
+    <class>utama.Kategori</class>
+    <class>utama.Book</class>
+    <class>utama.Peminjaman</class>
     <class>utama.Skripsi</class>
-    <class>utama.Buku</class>
+    <class>utama.Peminjamanskripsi</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/login"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/isco"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="javax.persistence.jdbc.password" value="bismillah@"/>

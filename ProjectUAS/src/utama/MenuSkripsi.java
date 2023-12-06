@@ -1,14 +1,21 @@
 package utama;
 
-import java.text.SimpleDateFormat;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -32,14 +39,13 @@ public class MenuSkripsi extends javax.swing.JPanel {
         jButtonHapus.setVisible(false);
         jButtonBatal.setVisible(false);
         tbl.setRowCount(0);
-        for (Skripsi sk : results) {
-            Object[] ob = new Object[6];
-            ob[0] = sk.getIdSkripsi();
-            ob[1] = sk.getJudulSkripsi();
-            ob[2] = sk.getSubJudul();
-            ob[3] = sk.getPengarang();
-            ob[4] = sk.getTahunTerbit();
-            ob[5] = sk.getJumlahHalaman();
+        for (Skripsi s : results) {
+            Object[] ob = new Object[5];
+            ob[0] = s.getIdskripsi();
+            ob[1] = s.getJudulskripsi();
+            ob[2] = s.getPenulis();
+            ob[3] = s.getTahunskripsi();
+            ob[4] = s.getHalamanskripsi();
             tbl.addRow(ob);
         }
         entityManager.close();
@@ -75,6 +81,7 @@ public class MenuSkripsi extends javax.swing.JPanel {
         jTextFieldSearch = new javax.swing.JTextField();
         jComboBoxSearch = new javax.swing.JComboBox<>();
         jButtonSearch = new javax.swing.JButton();
+        jButtonCSVSkripsi = new javax.swing.JButton();
         jPanelAdd = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -85,8 +92,6 @@ public class MenuSkripsi extends javax.swing.JPanel {
         jTextFieldID = new javax.swing.JTextField();
         jLabelJudulBuku = new javax.swing.JLabel();
         jTextFieldJudulSkripsi = new javax.swing.JTextField();
-        jLabelSubJudul = new javax.swing.JLabel();
-        jTextFieldSubJudul = new javax.swing.JTextField();
         jLabelPengarang = new javax.swing.JLabel();
         jTextFieldPengarang = new javax.swing.JTextField();
         jLabelTahunTerbit = new javax.swing.JLabel();
@@ -113,13 +118,13 @@ public class MenuSkripsi extends javax.swing.JPanel {
 
         jTableRecordSkripsi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID ", "Judul Skripsi", "Sub Judul ", "Pengarang", "Tahun Terbit", "Jumlah Halaman"
+                "ID ", "Judul Skripsi", "Penulis", "Tahun Skripsi", "Halaman Skripsi"
             }
         ));
         jTableRecordSkripsi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -178,7 +183,7 @@ public class MenuSkripsi extends javax.swing.JPanel {
 
         jComboBoxSearch.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jComboBoxSearch.setForeground(new java.awt.Color(153, 153, 153));
-        jComboBoxSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Judul Skripsi", "Sub Judul", "Pengarang", "Tahun Terbit", " " }));
+        jComboBoxSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Judul Skripsi", "Penulis", "Penerbit", "Tahun Terbit", "Jumlah Halaman", " " }));
         jComboBoxSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxSearchActionPerformed(evt);
@@ -192,20 +197,36 @@ public class MenuSkripsi extends javax.swing.JPanel {
             }
         });
 
+        jButtonCSVSkripsi.setBackground(new java.awt.Color(153, 153, 153));
+        jButtonCSVSkripsi.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jButtonCSVSkripsi.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCSVSkripsi.setText("IMPOR FILE");
+        jButtonCSVSkripsi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCSVSkripsiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelViewLayout = new javax.swing.GroupLayout(jPanelView);
         jPanelView.setLayout(jPanelViewLayout);
         jPanelViewLayout.setHorizontalGroup(
             jPanelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelViewLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(jPanelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanelViewLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBoxSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelViewLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
+                        .addGroup(jPanelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButtonCSVSkripsi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonTambah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(jPanelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelViewLayout.createSequentialGroup()
-                                .addComponent(jButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -214,13 +235,9 @@ public class MenuSkripsi extends javax.swing.JPanel {
                                 .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1204, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelViewLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(761, 761, 761)
+                                .addComponent(jComboBoxSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(20, 20, 20))
         );
         jPanelViewLayout.setVerticalGroup(
@@ -244,8 +261,13 @@ public class MenuSkripsi extends javax.swing.JPanel {
                         .addGroup(jPanelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jTextFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))))
-                .addGap(8, 8, 8)
-                .addComponent(jComboBoxSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelViewLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jComboBoxSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelViewLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonCSVSkripsi)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -309,22 +331,10 @@ public class MenuSkripsi extends javax.swing.JPanel {
             }
         });
 
-        jLabelSubJudul.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelSubJudul.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabelSubJudul.setForeground(new java.awt.Color(153, 153, 153));
-        jLabelSubJudul.setText("SUB JUDUL");
-
-        jTextFieldSubJudul.setFont(new java.awt.Font("SansSerif", 2, 12)); // NOI18N
-        jTextFieldSubJudul.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldSubJudulActionPerformed(evt);
-            }
-        });
-
         jLabelPengarang.setBackground(new java.awt.Color(255, 255, 255));
         jLabelPengarang.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabelPengarang.setForeground(new java.awt.Color(153, 153, 153));
-        jLabelPengarang.setText("PENGARANG");
+        jLabelPengarang.setText("PENULIS");
 
         jTextFieldPengarang.setFont(new java.awt.Font("SansSerif", 2, 12)); // NOI18N
         jTextFieldPengarang.addActionListener(new java.awt.event.ActionListener() {
@@ -368,7 +378,7 @@ public class MenuSkripsi extends javax.swing.JPanel {
                         .addGroup(jPanelAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelAddLayout.createSequentialGroup()
                                 .addComponent(jLabelTambahSkripsi)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 718, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 730, Short.MAX_VALUE)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -381,9 +391,8 @@ public class MenuSkripsi extends javax.swing.JPanel {
                     .addGroup(jPanelAddLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(jPanelAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldID, javax.swing.GroupLayout.DEFAULT_SIZE, 1212, Short.MAX_VALUE)
+                            .addComponent(jTextFieldID, javax.swing.GroupLayout.DEFAULT_SIZE, 1224, Short.MAX_VALUE)
                             .addComponent(jTextFieldJudulSkripsi)
-                            .addComponent(jTextFieldSubJudul)
                             .addComponent(jTextFieldPengarang)
                             .addComponent(jTextFieldTahunTerbit)
                             .addComponent(jTextFieldJumlahHalaman)
@@ -391,7 +400,6 @@ public class MenuSkripsi extends javax.swing.JPanel {
                             .addComponent(jLabelJumlahHalaman)
                             .addComponent(jLabelISBN)
                             .addComponent(jLabelJudulBuku)
-                            .addComponent(jLabelSubJudul)
                             .addComponent(jLabelPengarang))
                         .addContainerGap())))
         );
@@ -417,10 +425,6 @@ public class MenuSkripsi extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldJudulSkripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelSubJudul)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldSubJudul, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelPengarang)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldPengarang, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -432,7 +436,7 @@ public class MenuSkripsi extends javax.swing.JPanel {
                 .addComponent(jLabelJumlahHalaman)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldJumlahHalaman, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(216, Short.MAX_VALUE))
         );
 
         jPanelMain.add(jPanelAdd, "card2");
@@ -448,7 +452,7 @@ public class MenuSkripsi extends javax.swing.JPanel {
 
         if (jButtonTambah.getText().equals("UBAH")) {
             dataTabel();
-            jButtonSimpan.setText("UPDATE");
+            jButtonSimpan.setText("UBAH");
         }
     }//GEN-LAST:event_jButtonTambahActionPerformed
 
@@ -461,6 +465,7 @@ public class MenuSkripsi extends javax.swing.JPanel {
         jPanelMain.add(new MenuBuku());
         jPanelMain.repaint();
         jPanelMain.revalidate();
+        
     }//GEN-LAST:event_jButtonBatalActionPerformed
 
     private void jButtonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSimpanActionPerformed
@@ -468,8 +473,7 @@ public class MenuSkripsi extends javax.swing.JPanel {
 
             String idSkripsi = jTextFieldID.getText().trim();
             String judulSkripsi = jTextFieldJudulSkripsi.getText();
-            String subJudul = jTextFieldSubJudul.getText();
-            String pengarang = jTextFieldPengarang.getText();
+            String penulis = jTextFieldPengarang.getText();
             String tahunTerbit = jTextFieldTahunTerbit.getText();
             String jumlahHalaman = jTextFieldJumlahHalaman.getText();
 
@@ -477,14 +481,14 @@ public class MenuSkripsi extends javax.swing.JPanel {
             EntityManager entityManager = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
             entityManager.getTransaction().begin();
             Skripsi s = new Skripsi();
-            s.setIdSkripsi(idSkripsi);
+            s.setIdskripsi(idSkripsi);
 
             if (s != null) {
-                s.setJudulSkripsi(judulSkripsi);
-                s.setSubJudul(subJudul);
-                s.setPengarang(pengarang);
-                s.setTahunTerbit(tahunTerbit);
-                s.setJumlahHalaman(jumlahHalaman);
+                s.setIdskripsi(idSkripsi);
+                s.setJudulskripsi(judulSkripsi);
+                s.setPenulis(penulis);
+                s.setTahunskripsi(tahunTerbit);
+                s.setHalamanskripsi(jumlahHalaman);
                 entityManager.persist(s);
                 entityManager.getTransaction().commit();
                 JOptionPane.showMessageDialog(null, "Berhasil");
@@ -497,10 +501,12 @@ public class MenuSkripsi extends javax.swing.JPanel {
             //Akhir Persistence
             jTextFieldID.setText("");
             jTextFieldJudulSkripsi.setText("");
-            jTextFieldSubJudul.setText("");
             jTextFieldPengarang.setText("");
             jTextFieldTahunTerbit.setText("");
             jTextFieldJumlahHalaman.setText("");
+            
+            tampilSkripsi();
+            
         } else {
             updateData();
         }
@@ -511,6 +517,8 @@ public class MenuSkripsi extends javax.swing.JPanel {
         jPanelMain.add(jPanelView);
         jPanelMain.repaint();
         jPanelMain.revalidate();
+        
+        tampilSkripsi();
     }//GEN-LAST:event_jButtonBatalTambahActionPerformed
 
     private void jTextFieldIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIDActionPerformed
@@ -520,10 +528,6 @@ public class MenuSkripsi extends javax.swing.JPanel {
     private void jTextFieldJudulSkripsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldJudulSkripsiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldJudulSkripsiActionPerformed
-
-    private void jTextFieldSubJudulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSubJudulActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldSubJudulActionPerformed
 
     private void jTextFieldPengarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPengarangActionPerformed
         // TODO add your handling code here:
@@ -561,12 +565,11 @@ public class MenuSkripsi extends javax.swing.JPanel {
             // Ubah kode di bawah ini untuk mencari data yang diinginkan
             Skripsi s = entityManager.find(Skripsi.class, tabel_klik);
             if (s != null) {
-                String idSkripsi = s.getIdSkripsi();
-                String judulSkripsi = s.getJudulSkripsi();
-                String subJudul = s.getSubJudul();
-                String pengarang = s.getPengarang();
-                String tahunTerbit = s.getTahunTerbit();
-                String jumlahHalaman = s.getJumlahHalaman();
+                String idSkripsi = s.getIdskripsi();
+                String judulSkripsi = s.getJudulskripsi();
+                String penulis = s.getPenulis();
+                String tahunTerbit = s.getTahunskripsi();
+                String jumlahHalaman = s.getHalamanskripsi();
             }
 
             entityManager.getTransaction().commit();
@@ -579,24 +582,20 @@ public class MenuSkripsi extends javax.swing.JPanel {
         String s = jTextFieldSearch.getText();
         switch (jComboBoxSearch.getSelectedIndex()) {
             case 0:
-            getdataID(s);
-            break;
+                getdataID(s);
+                break;
             case 1:
-            getdataJudul(s);
-            break;
+                getdataJudul(s);
+                break;
             case 2:
-            getdataSubJudul(s);
-            break;
+                getdataPengarang(s);
+                break;
             case 3:
-            getdataPengarang(s);
-            break;
+                getdataTahunTerbit(s);
+                break;
             case 4:
-            getdataTahunTerbit(s);
-            break;
-            case 5:
-            getdataJumlahHalaman(s);
-            break;
-
+                getdataJumlahHalaman(s);
+                break;
         }
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
@@ -608,29 +607,74 @@ public class MenuSkripsi extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldSearchFocusGained
 
     private void jTextFieldSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldSearchFocusLost
-       String s = jTextFieldSearch.getText();
+        String s = jTextFieldSearch.getText();
         if (s.equals("")) {
             jTextFieldSearch.setText("Search");
         }
     }//GEN-LAST:event_jTextFieldSearchFocusLost
 
-//    private void setIDSkripsi() {
-//        String urutan = null;
-//        //SimpleDateFormat noFormat = new SimpleDataFormat("yyMM");
-//       // String no = noFormat.format(now);
-//        EntityManager entityManager = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
-//        entityManager.getTransaction().begin();
-//        Query query = entityManager.createQuery("SELECT s RIGHT (idSkripsi, 3) AS Nomor " + 
-//                "FROM Skripsi s " +
-//                "WHERE idSkripsi LIKE 'SKP" + "%' " +
-//                "ORDER BY idSkripsi DESC " +
-//                "LIMIT 1");
-//        entityManager.getTransaction().commit();
-//        }
+    private void jButtonCSVSkripsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCSVSkripsiActionPerformed
+        JFileChooser filechooser = new JFileChooser();
+
+        int i = filechooser.showOpenDialog(null);
+        if (i == JFileChooser.APPROVE_OPTION) {
+            EntityManager entityManager = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
+            entityManager.getTransaction().begin();
+
+            File f = filechooser.getSelectedFile();
+            String filepath = f.getPath();
+
+            //Parsing Data CSV
+            System.out.print(filepath);
+            DefaultTableModel csv_data = new DefaultTableModel();
+
+            // Deklarasi bukuRoot
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Book> criteriaQuery = criteriaBuilder.createQuery(Book.class);
+            Root<Book> bukuRoot = criteriaQuery.from(Book.class);
+
+            try {
+                InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(filepath));
+                org.apache.commons.csv.CSVParser csvParser = CSVFormat.DEFAULT.parse(inputStreamReader);
+
+                for (CSVRecord csvRecord : csvParser) {
+                    Book b = new Book();
+                    b.setIsbn(csvRecord.get(0));
+                    b.setJudul(csvRecord.get(1));
+                    b.setPengarang(csvRecord.get(3));
+                    b.setPenerbit(csvRecord.get(4));
+                    b.setTahun(csvRecord.get(5));
+                    b.setHalamanbuku(csvRecord.get(6));
+
+                    // Tidak menggunakan join dengan kategori
+                    entityManager.persist(b);
+                }
+
+                // Commit hanya jika tidak ada exception
+                entityManager.getTransaction().commit();
+
+                // Menampilkan pesan sukses
+                JOptionPane.showMessageDialog(null, "File berhasil diupload.");
+
+                // Refresh data setelah mengunggah
+                tampilSkripsi();
+            } catch (Exception ex) {
+                // Menampilkan pesan gagal
+                JOptionPane.showMessageDialog(null, "File gagal diupload. Error: " + ex.getMessage());
+
+                // Rollback transaksi jika terjadi exception
+                entityManager.getTransaction().rollback();
+
+                ex.printStackTrace();
+            }
+        }
+
+    }//GEN-LAST:event_jButtonCSVSkripsiActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBatal;
     private javax.swing.JButton jButtonBatalTambah;
+    private javax.swing.JButton jButtonCSVSkripsi;
     private javax.swing.JButton jButtonHapus;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtonSimpan;
@@ -645,7 +689,6 @@ public class MenuSkripsi extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelJudulBuku;
     private javax.swing.JLabel jLabelJumlahHalaman;
     private javax.swing.JLabel jLabelPengarang;
-    private javax.swing.JLabel jLabelSubJudul;
     private javax.swing.JLabel jLabelTahunTerbit;
     private javax.swing.JLabel jLabelTambahSkripsi;
     private javax.swing.JPanel jPanelAdd;
@@ -658,7 +701,6 @@ public class MenuSkripsi extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldJumlahHalaman;
     private javax.swing.JTextField jTextFieldPengarang;
     private javax.swing.JTextField jTextFieldSearch;
-    private javax.swing.JTextField jTextFieldSubJudul;
     private javax.swing.JTextField jTextFieldTahunTerbit;
     // End of variables declaration//GEN-END:variables
 
@@ -673,10 +715,11 @@ public class MenuSkripsi extends javax.swing.JPanel {
 
         jTextFieldID.setText(jTableRecordSkripsi.getValueAt(row, 0).toString());
         jTextFieldJudulSkripsi.setText(jTableRecordSkripsi.getValueAt(row, 1).toString());
-        jTextFieldSubJudul.setText(jTableRecordSkripsi.getValueAt(row, 2).toString());
-        jTextFieldPengarang.setText(jTableRecordSkripsi.getValueAt(row, 3).toString());
-        jTextFieldTahunTerbit.setText(jTableRecordSkripsi.getValueAt(row, 4).toString());
-        jTextFieldJumlahHalaman.setText(jTableRecordSkripsi.getValueAt(row, 5).toString());
+        jTextFieldPengarang.setText(jTableRecordSkripsi.getValueAt(row, 2).toString());
+        jTextFieldTahunTerbit.setText(jTableRecordSkripsi.getValueAt(row, 3).toString());
+        jTextFieldJumlahHalaman.setText(jTableRecordSkripsi.getValueAt(row, 4).toString());
+        
+        tampilSkripsi();
     }
 
     private void deleteData() {
@@ -693,18 +736,18 @@ public class MenuSkripsi extends javax.swing.JPanel {
 
         jTextFieldID.setText("");
         jTextFieldJudulSkripsi.setText("");
-        jTextFieldSubJudul.setText("");
         jTextFieldPengarang.setText("");
         jTextFieldTahunTerbit.setText("");
         jTextFieldJumlahHalaman.setText("");
+        
+        tampilSkripsi();
 
     }
 
     private void updateData() {
         String idSkripsi = jTextFieldID.getText().trim();
         String judulSkripsi = jTextFieldJudulSkripsi.getText();
-        String subJudul = jTextFieldSubJudul.getText();
-        String pengarang = jTextFieldPengarang.getText();
+        String penulis = jTextFieldPengarang.getText();
         String tahunTerbit = jTextFieldTahunTerbit.getText();
         String jumlahHalaman = jTextFieldJumlahHalaman.getText();
 
@@ -712,14 +755,14 @@ public class MenuSkripsi extends javax.swing.JPanel {
         EntityManager entityManager = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
         entityManager.getTransaction().begin();
         Skripsi s = new Skripsi();
-        s.setIdSkripsi(idSkripsi);
+        s.setIdskripsi(idSkripsi);
 
         if (s != null) {
-            s.setJudulSkripsi(judulSkripsi);
-            s.setSubJudul(subJudul);
-            s.setPengarang(pengarang);
-            s.setTahunTerbit(tahunTerbit);
-            s.setJumlahHalaman(jumlahHalaman);
+            s.setIdskripsi(idSkripsi);
+            s.setJudulskripsi(judulSkripsi);
+            s.setPenulis(penulis);
+            s.setTahunskripsi(tahunTerbit);
+            s.setHalamanskripsi(jumlahHalaman);
             entityManager.merge(s);
 
             JOptionPane.showMessageDialog(null, "Berhasil");
@@ -733,13 +776,12 @@ public class MenuSkripsi extends javax.swing.JPanel {
         //Akhir Persistence
         jTextFieldID.setText("");
         jTextFieldJudulSkripsi.setText("");
-        jTextFieldSubJudul.setText("");
         jTextFieldPengarang.setText("");
         jTextFieldTahunTerbit.setText("");
         jTextFieldJumlahHalaman.setText("");
 
     }
-    
+
     void ambildata() {
         EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
         em.getTransaction().begin();
@@ -750,13 +792,12 @@ public class MenuSkripsi extends javax.swing.JPanel {
         DefaultTableModel tb = (DefaultTableModel) jTableRecordSkripsi.getModel();
         tb.setRowCount(0);
         for (Skripsi s : list) {
-            Object[] ob = new Object[6];
-            ob[0] = s.getIdSkripsi();
-            ob[1] = s.getJudulSkripsi();
-            ob[2] = s.getSubJudul();
-            ob[3] = s.getPengarang();
-            ob[4] = s.getTahunTerbit();
-            ob[5] = s.getJumlahHalaman();
+            Object[] ob = new Object[5];
+            ob[0] = s.getIdskripsi();
+            ob[1] = s.getJudulskripsi();
+            ob[2] = s.getPenulis();
+            ob[3] = s.getTahunskripsi();
+            ob[4] = s.getHalamanskripsi();
             tb.addRow(ob);
         }
     }
@@ -772,19 +813,18 @@ public class MenuSkripsi extends javax.swing.JPanel {
         DefaultTableModel tb = (DefaultTableModel) jTableRecordSkripsi.getModel();
         tb.setRowCount(0);
         for (Skripsi s : list) {
-            Object[] ob = new Object[6];
-            ob[0] = s.getIdSkripsi();
-            ob[1] = s.getJudulSkripsi();
-            ob[2] = s.getSubJudul();
-            ob[3] = s.getPengarang();
-            ob[4] = s.getTahunTerbit();
-            ob[5] = s.getJumlahHalaman();
+            Object[] ob = new Object[5];
+            ob[0] = s.getIdskripsi();
+            ob[1] = s.getJudulskripsi();
+            ob[2] = s.getPenulis();
+            ob[3] = s.getTahunskripsi();
+            ob[4] = s.getHalamanskripsi();
             tb.addRow(ob);
         }
     }
 
     private void getdataJudul(String judulSkripsi) {
-       EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
+        EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
         em.getTransaction().begin();
         Query query = em.createQuery("SELECT s FROM Skripsi s WHERE LOWER (s.judulSkripsi) LIKE = :judulSkripsi");
         query.setParameter("judulSkripsi", "%" + judulSkripsi.toLowerCase() + "%");
@@ -794,41 +834,39 @@ public class MenuSkripsi extends javax.swing.JPanel {
         DefaultTableModel tb = (DefaultTableModel) jTableRecordSkripsi.getModel();
         tb.setRowCount(0);
         for (Skripsi s : list) {
-            Object[] ob = new Object[6];
-            ob[0] = s.getIdSkripsi();
-            ob[1] = s.getJudulSkripsi();
-            ob[2] = s.getSubJudul();
-            ob[3] = s.getPengarang();
-            ob[4] = s.getTahunTerbit();
-            ob[5] = s.getJumlahHalaman();
+            Object[] ob = new Object[5];
+            ob[0] = s.getIdskripsi();
+            ob[1] = s.getJudulskripsi();
+            ob[2] = s.getPenulis();
+            ob[3] = s.getTahunskripsi();
+            ob[4] = s.getHalamanskripsi();
             tb.addRow(ob);
         }
     }
 
-    private void getdataSubJudul(String subJudul) {
-        EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
-        em.getTransaction().begin();
-        Query query = em.createQuery("SELECT s FROM Skripsi s WHERE LOWER (s.subJudul) LIKE = :subJudul");
-        query.setParameter("subJudul", "%" + subJudul.toLowerCase() + "%");
-        List<Skripsi> list = query.getResultList();
-        em.getTransaction().commit();
-        em.close();
-        DefaultTableModel tb = (DefaultTableModel) jTableRecordSkripsi.getModel();
-        tb.setRowCount(0);
-        for (Skripsi s : list) {
-            Object[] ob = new Object[6];
-            ob[0] = s.getIdSkripsi();
-            ob[1] = s.getJudulSkripsi();
-            ob[2] = s.getSubJudul();
-            ob[3] = s.getPengarang();
-            ob[4] = s.getTahunTerbit();
-            ob[5] = s.getJumlahHalaman();
-            tb.addRow(ob);
-        }
-    }
+//    private void getdataSubJudul(String subJudul) {
+//        EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
+//        em.getTransaction().begin();
+//        Query query = em.createQuery("SELECT s FROM Skripsi s WHERE LOWER (s.subJudul) LIKE = :subJudul");
+//        query.setParameter("subJudul", "%" + subJudul.toLowerCase() + "%");
+//        List<Skripsi> list = query.getResultList();
+//        em.getTransaction().commit();
+//        em.close();
+//        DefaultTableModel tb = (DefaultTableModel) jTableRecordSkripsi.getModel();
+//        tb.setRowCount(0);
+//        for (Skripsi s : list) {
+//            Object[] ob = new Object[5];
+//            ob[0] = s.getIdskripsi();
+//            ob[1] = s.getJudulskripsi();
+//            ob[2] = s.getPenulis();
+//            ob[3] = s.getTahunskripsi();
+//            ob[4] = s.getHalamanskripsi();
+//            tb.addRow(ob);
+//        }
+//    }
 
     private void getdataPengarang(String pengarang) {
-    EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
+        EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
         em.getTransaction().begin();
         Query query = em.createQuery("SELECT s FROM Skripsi s WHERE LOWER (s.pengarang) LIKE = :pengarang");
         query.setParameter("pengarang", "%" + pengarang.toLowerCase() + "%");
@@ -838,13 +876,12 @@ public class MenuSkripsi extends javax.swing.JPanel {
         DefaultTableModel tb = (DefaultTableModel) jTableRecordSkripsi.getModel();
         tb.setRowCount(0);
         for (Skripsi s : list) {
-            Object[] ob = new Object[6];
-            ob[0] = s.getIdSkripsi();
-            ob[1] = s.getJudulSkripsi();
-            ob[2] = s.getSubJudul();
-            ob[3] = s.getPengarang();
-            ob[4] = s.getTahunTerbit();
-            ob[5] = s.getJumlahHalaman();
+            Object[] ob = new Object[5];
+            ob[0] = s.getIdskripsi();
+            ob[1] = s.getJudulskripsi();
+            ob[2] = s.getPenulis();
+            ob[3] = s.getTahunskripsi();
+            ob[4] = s.getHalamanskripsi();
             tb.addRow(ob);
         }
     }
@@ -860,18 +897,18 @@ public class MenuSkripsi extends javax.swing.JPanel {
         DefaultTableModel tb = (DefaultTableModel) jTableRecordSkripsi.getModel();
         tb.setRowCount(0);
         for (Skripsi s : list) {
-            Object[] ob = new Object[6];
-            ob[0] = s.getIdSkripsi();
-            ob[1] = s.getJudulSkripsi();
-            ob[2] = s.getSubJudul();
-            ob[3] = s.getPengarang();
-            ob[4] = s.getTahunTerbit();
-            ob[5] = s.getJumlahHalaman();
+            Object[] ob = new Object[5];
+            ob[0] = s.getIdskripsi();
+            ob[1] = s.getJudulskripsi();
+            ob[2] = s.getPenulis();
+            ob[3] = s.getTahunskripsi();
+            ob[4] = s.getHalamanskripsi();
             tb.addRow(ob);
-        }    }
- 
+        }
+    }
+
     private void getdataJumlahHalaman(String jumlahHalaman) {
-       EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
+        EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
         em.getTransaction().begin();
         Query query = em.createQuery("SELECT s FROM Skripsi s WHERE LOWER (s.jumlahHalaman) LIKE = :jumlahHalaman");
         query.setParameter("jumlahHalaman", "%" + jumlahHalaman.toLowerCase() + "%");
@@ -881,13 +918,12 @@ public class MenuSkripsi extends javax.swing.JPanel {
         DefaultTableModel tb = (DefaultTableModel) jTableRecordSkripsi.getModel();
         tb.setRowCount(0);
         for (Skripsi s : list) {
-            Object[] ob = new Object[6];
-            ob[0] = s.getIdSkripsi();
-            ob[1] = s.getJudulSkripsi();
-            ob[2] = s.getSubJudul();
-            ob[3] = s.getPengarang();
-            ob[4] = s.getTahunTerbit();
-            ob[5] = s.getJumlahHalaman();
+            Object[] ob = new Object[5];
+            ob[0] = s.getIdskripsi();
+            ob[1] = s.getJudulskripsi();
+            ob[2] = s.getPenulis();
+            ob[3] = s.getTahunskripsi();
+            ob[4] = s.getHalamanskripsi();
             tb.addRow(ob);
         }
     }

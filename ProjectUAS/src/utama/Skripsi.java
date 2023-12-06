@@ -5,12 +5,14 @@
 package utama;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -21,89 +23,81 @@ import javax.persistence.Table;
 @Table(name = "skripsi")
 @NamedQueries({
     @NamedQuery(name = "Skripsi.findAll", query = "SELECT s FROM Skripsi s"),
-    @NamedQuery(name = "Skripsi.findByIdSkripsi", query = "SELECT s FROM Skripsi s WHERE s.idSkripsi = :idSkripsi"),
-    @NamedQuery(name = "Skripsi.findByJudulSkripsi", query = "SELECT s FROM Skripsi s WHERE s.judulSkripsi = :judulSkripsi"),
-    @NamedQuery(name = "Skripsi.findBySubJudul", query = "SELECT s FROM Skripsi s WHERE s.subJudul = :subJudul"),
-    @NamedQuery(name = "Skripsi.findByPengarang", query = "SELECT s FROM Skripsi s WHERE s.pengarang = :pengarang"),
-    @NamedQuery(name = "Skripsi.findByTahunTerbit", query = "SELECT s FROM Skripsi s WHERE s.tahunTerbit = :tahunTerbit"),
-    @NamedQuery(name = "Skripsi.findByJumlahHalaman", query = "SELECT s FROM Skripsi s WHERE s.jumlahHalaman = :jumlahHalaman")})
+    @NamedQuery(name = "Skripsi.findByIdskripsi", query = "SELECT s FROM Skripsi s WHERE s.idskripsi = :idskripsi"),
+    @NamedQuery(name = "Skripsi.findByJudulskripsi", query = "SELECT s FROM Skripsi s WHERE s.judulskripsi = :judulskripsi"),
+    @NamedQuery(name = "Skripsi.findByPenulis", query = "SELECT s FROM Skripsi s WHERE s.penulis = :penulis"),
+    @NamedQuery(name = "Skripsi.findByTahunskripsi", query = "SELECT s FROM Skripsi s WHERE s.tahunskripsi = :tahunskripsi"),
+    @NamedQuery(name = "Skripsi.findByHalamanskripsi", query = "SELECT s FROM Skripsi s WHERE s.halamanskripsi = :halamanskripsi")})
 public class Skripsi implements Serializable {
+
+    @OneToMany(mappedBy = "idskripsi")
+    private Collection<Peminjamanskripsi> peminjamanskripsiCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id_skripsi")
-    private String idSkripsi;
-    @Column(name = "judul_skripsi")
-    private String judulSkripsi;
-    @Column(name = "sub_judul")
-    private String subJudul;
-    @Column(name = "pengarang")
-    private String pengarang;
-    @Column(name = "tahun_terbit")
-    private String tahunTerbit;
-    @Column(name = "jumlah_halaman")
-    private String jumlahHalaman;
+    @Column(name = "idskripsi")
+    private String idskripsi;
+    @Column(name = "judulskripsi")
+    private String judulskripsi;
+    @Column(name = "penulis")
+    private String penulis;
+    @Column(name = "tahunskripsi")
+    private String tahunskripsi;
+    @Column(name = "halamanskripsi")
+    private String halamanskripsi;
 
     public Skripsi() {
     }
 
-    public Skripsi(String idSkripsi) {
-        this.idSkripsi = idSkripsi;
+    public Skripsi(String idskripsi) {
+        this.idskripsi = idskripsi;
     }
 
-    public String getIdSkripsi() {
-        return idSkripsi;
+    public String getIdskripsi() {
+        return idskripsi;
     }
 
-    public void setIdSkripsi(String idSkripsi) {
-        this.idSkripsi = idSkripsi;
+    public void setIdskripsi(String idskripsi) {
+        this.idskripsi = idskripsi;
     }
 
-    public String getJudulSkripsi() {
-        return judulSkripsi;
+    public String getJudulskripsi() {
+        return judulskripsi;
     }
 
-    public void setJudulSkripsi(String judulSkripsi) {
-        this.judulSkripsi = judulSkripsi;
+    public void setJudulskripsi(String judulskripsi) {
+        this.judulskripsi = judulskripsi;
     }
 
-    public String getSubJudul() {
-        return subJudul;
+    public String getPenulis() {
+        return penulis;
     }
 
-    public void setSubJudul(String subJudul) {
-        this.subJudul = subJudul;
+    public void setPenulis(String penulis) {
+        this.penulis = penulis;
     }
 
-    public String getPengarang() {
-        return pengarang;
+    public String getTahunskripsi() {
+        return tahunskripsi;
     }
 
-    public void setPengarang(String pengarang) {
-        this.pengarang = pengarang;
+    public void setTahunskripsi(String tahunskripsi) {
+        this.tahunskripsi = tahunskripsi;
     }
 
-    public String getTahunTerbit() {
-        return tahunTerbit;
+    public String getHalamanskripsi() {
+        return halamanskripsi;
     }
 
-    public void setTahunTerbit(String tahunTerbit) {
-        this.tahunTerbit = tahunTerbit;
-    }
-
-    public String getJumlahHalaman() {
-        return jumlahHalaman;
-    }
-
-    public void setJumlahHalaman(String jumlahHalaman) {
-        this.jumlahHalaman = jumlahHalaman;
+    public void setHalamanskripsi(String halamanskripsi) {
+        this.halamanskripsi = halamanskripsi;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idSkripsi != null ? idSkripsi.hashCode() : 0);
+        hash += (idskripsi != null ? idskripsi.hashCode() : 0);
         return hash;
     }
 
@@ -114,7 +108,7 @@ public class Skripsi implements Serializable {
             return false;
         }
         Skripsi other = (Skripsi) object;
-        if ((this.idSkripsi == null && other.idSkripsi != null) || (this.idSkripsi != null && !this.idSkripsi.equals(other.idSkripsi))) {
+        if ((this.idskripsi == null && other.idskripsi != null) || (this.idskripsi != null && !this.idskripsi.equals(other.idskripsi))) {
             return false;
         }
         return true;
@@ -122,7 +116,15 @@ public class Skripsi implements Serializable {
 
     @Override
     public String toString() {
-        return "utama.Skripsi[ idSkripsi=" + idSkripsi + " ]";
+        return "utama.Skripsi[ idskripsi=" + idskripsi + " ]";
+    }
+
+    public Collection<Peminjamanskripsi> getPeminjamanskripsiCollection() {
+        return peminjamanskripsiCollection;
+    }
+
+    public void setPeminjamanskripsiCollection(Collection<Peminjamanskripsi> peminjamanskripsiCollection) {
+        this.peminjamanskripsiCollection = peminjamanskripsiCollection;
     }
     
 }

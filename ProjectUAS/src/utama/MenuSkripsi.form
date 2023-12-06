@@ -16,7 +16,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-82,0,0,4,-36"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-82,0,0,4,-24"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
@@ -41,16 +41,23 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jComboBoxSearch" min="-2" pref="356" max="-2" attributes="0"/>
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel2" min="-2" pref="117" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="jButtonCSVSkripsi" max="32767" attributes="0"/>
+                                  <Component id="jButtonTambah" max="32767" attributes="0"/>
+                              </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jButtonTambah" min="-2" pref="87" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jButtonHapus" min="-2" pref="87" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -60,13 +67,9 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButtonSearch" min="-2" pref="38" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jScrollPane1" alignment="1" pref="1204" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel2" min="-2" pref="117" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="761" max="-2" attributes="0"/>
+                                      <Component id="jComboBoxSearch" min="-2" pref="356" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -103,8 +106,16 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Component id="jComboBoxSearch" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                              <Component id="jComboBoxSearch" min="-2" pref="34" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jButtonCSVSkripsi" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="449" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -156,22 +167,16 @@
                 <Component class="javax.swing.JTable" name="jTableRecordSkripsi">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="6" rowCount="4">
+                      <Table columnCount="5" rowCount="4">
                         <Column editable="true" title="ID " type="java.lang.Object"/>
                         <Column editable="true" title="Judul Skripsi" type="java.lang.Object"/>
-                        <Column editable="true" title="Sub Judul " type="java.lang.Object"/>
-                        <Column editable="true" title="Pengarang" type="java.lang.Object"/>
-                        <Column editable="true" title="Tahun Terbit" type="java.lang.Object"/>
-                        <Column editable="true" title="Jumlah Halaman" type="java.lang.Object"/>
+                        <Column editable="true" title="Penulis" type="java.lang.Object"/>
+                        <Column editable="true" title="Tahun Skripsi" type="java.lang.Object"/>
+                        <Column editable="true" title="Halaman Skripsi" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
@@ -285,12 +290,13 @@
                   <Color blue="99" green="99" red="99" type="rgb"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="5">
+                  <StringArray count="6">
                     <StringItem index="0" value="Judul Skripsi"/>
-                    <StringItem index="1" value="Sub Judul"/>
-                    <StringItem index="2" value="Pengarang"/>
+                    <StringItem index="1" value="Penulis"/>
+                    <StringItem index="2" value="Penerbit"/>
                     <StringItem index="3" value="Tahun Terbit"/>
-                    <StringItem index="4" value=" "/>
+                    <StringItem index="4" value="Jumlah Halaman"/>
+                    <StringItem index="5" value=" "/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -309,6 +315,23 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSearchActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButtonCSVSkripsi">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="99" green="99" red="99" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SansSerif" size="12" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="IMPOR FILE"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCSVSkripsiActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -330,7 +353,7 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="jLabelTambahSkripsi" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="718" max="32767" attributes="0"/>
+                                      <EmptySpace pref="730" max="32767" attributes="0"/>
                                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel4" min="-2" pref="117" max="-2" attributes="0"/>
@@ -347,9 +370,8 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jTextFieldID" alignment="0" pref="1212" max="32767" attributes="0"/>
+                                  <Component id="jTextFieldID" alignment="0" pref="1224" max="32767" attributes="0"/>
                                   <Component id="jTextFieldJudulSkripsi" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextFieldSubJudul" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jTextFieldPengarang" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jTextFieldTahunTerbit" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jTextFieldJumlahHalaman" alignment="0" max="32767" attributes="0"/>
@@ -357,7 +379,6 @@
                                   <Component id="jLabelJumlahHalaman" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabelISBN" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabelJudulBuku" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabelSubJudul" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabelPengarang" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -391,10 +412,6 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTextFieldJudulSkripsi" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jLabelSubJudul" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextFieldSubJudul" min="-2" pref="35" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabelPengarang" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTextFieldPengarang" min="-2" pref="35" max="-2" attributes="0"/>
@@ -406,7 +423,7 @@
                       <Component id="jLabelJumlahHalaman" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTextFieldJumlahHalaman" min="-2" pref="35" max="-2" attributes="0"/>
-                      <EmptySpace pref="147" max="32767" attributes="0"/>
+                      <EmptySpace pref="216" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -527,30 +544,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldJudulSkripsiActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabelSubJudul">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="SansSerif" size="12" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="SUB JUDUL"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextFieldSubJudul">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="SansSerif" size="12" style="2"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldSubJudulActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabelPengarang">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -562,7 +555,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="99" green="99" red="99" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="PENGARANG"/>
+                <Property name="text" type="java.lang.String" value="PENULIS"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldPengarang">

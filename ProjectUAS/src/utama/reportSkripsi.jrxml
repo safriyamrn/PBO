@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f406019f-dba2-4ae3-bc95-d9fc4e431b19">
+	<property name="ireport.zoom" value="1.0000000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="59"/>
+	<parameter name="searchBy" class="java.lang.String"/>
+	<parameter name="querySearch" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM skripsi]]>
+	</queryString>
+	<field name="idskripsi" class="java.lang.String"/>
+	<field name="judulskripsi" class="java.lang.String"/>
+	<field name="penulis" class="java.lang.String"/>
+	<field name="tahunskripsi" class="java.lang.String"/>
+	<field name="halamanskripsi" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="133" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="20" width="555" height="112" backcolor="#009999" uuid="a3788934-d213-486c-85fe-4cb6d9858bf8"/>
+				<graphicElement>
+					<pen lineColor="#00CCCC"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="120" y="70" width="395" height="27" forecolor="#FFFFFF" uuid="fea47767-aa40-4bc5-8ca8-266b688157ad"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Kota Jakarta, Jawa Barat, Kode Pos 219379]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="18" width="395" height="32" forecolor="#FFFFFF" uuid="dccd29fd-02bd-48ba-aea4-42b398c73550"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORMATION SYSTEM CLOUD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="50" width="395" height="20" forecolor="#FFFFFF" uuid="a6abbe37-4e67-4727-a7ba-d4048ac5387e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Jl. Pattimura No.323, Kel. Jatinegara, Kec.Bumiraga. ]]></text>
+			</staticText>
+			<image>
+				<reportElement x="40" y="18" width="79" height="79" uuid="9d74efb8-c638-484f-8e9e-e379171683f1"/>
+				<imageExpression><![CDATA["C:\\Users\\Safriya Murni\\OneDrive\\Documents\\NetBeansProjects\\ProjectUAS\\src\\asset\\icons8_books_50px.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="118" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="414" y="40" width="141" height="20" uuid="b6e0beca-e0e1-44c8-ac03-c942583e533a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="146" y="0" width="271" height="30" uuid="fc254192-d4fe-4028-961a-d0f84d3b8576"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAPORAN DATA SKRIPSI ISCO]]></text>
+			</staticText>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="414" y="60" width="138" height="20" uuid="58cc5142-2048-44e2-951a-d0cef6b5757b"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="89" width="552" height="29" uuid="a908ed55-db29-4b53-91b6-d848dc4f23fe"/>
+				<textFieldExpression><![CDATA["Hasil pencarian skripsi dari " + $P{querySearch} + " berdasarkan kolom " + $P{searchBy} + " menghasilkan data: "]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="62" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="1" width="555" height="60" backcolor="#009999" uuid="bbdea6b9-603f-4cc1-8287-a62d964e5011"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="1" width="76" height="60" forecolor="#FFFFFF" uuid="e39e2eb6-bf25-44c5-9577-a2e4b73195d2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[idskripsi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="1" width="126" height="60" forecolor="#FFFFFF" uuid="1eb2ae40-c024-4ca9-b352-f9f5d9db59db"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[judulskripsi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="202" y="1" width="150" height="60" forecolor="#FFFFFF" uuid="c8212af2-d0d4-4e42-9ab1-d079311f50ec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[penulis]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="352" y="1" width="100" height="60" forecolor="#FFFFFF" uuid="2a7a5aa9-9ad8-482d-bae4-414a03b471ad"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[tahunskripsi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="1" width="100" height="60" forecolor="#FFFFFF" uuid="da9f58b4-fce7-4a73-8a36-5e4818c9d8fc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[halamanskripsi]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="130" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="125" backcolor="#00A8B3" uuid="0ae732f0-daf4-41ee-9206-3e7b2b4bcbdb"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="76" height="125" forecolor="#FFFFFF" uuid="9cdea9a8-062c-41f2-adeb-3b3a3dbbc78b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idskripsi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="0" width="126" height="125" forecolor="#FFFFFF" uuid="70479bb2-f20b-41fa-8187-78ca003165d1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{judulskripsi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="202" y="0" width="150" height="125" forecolor="#FFFFFF" uuid="abd0be5d-aec5-47a4-abef-3738cb80b7d9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penulis}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="352" y="0" width="100" height="125" forecolor="#FFFFFF" uuid="d09e6625-25ab-4058-a508-711f6a44324a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tahunskripsi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="452" y="0" width="100" height="125" forecolor="#FFFFFF" uuid="3038e54e-ec7a-4478-96ff-62e37a55df15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{halamanskripsi}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,9 +1,6 @@
 package utama;
 
 //import com.sun.jdi.connect.spi.Connection;
-import java.beans.Statement;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

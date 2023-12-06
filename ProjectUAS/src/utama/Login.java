@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @Table(name = "login")
 @NamedQueries({
     @NamedQuery(name = "Login.findAll", query = "SELECT l FROM Login l"),
-    @NamedQuery(name = "Login.findByNomorInduk", query = "SELECT l FROM Login l WHERE l.nomorInduk = :nomorInduk"),
+    @NamedQuery(name = "Login.findByIdlogin", query = "SELECT l FROM Login l WHERE l.idlogin = :idlogin"),
     @NamedQuery(name = "Login.findByNama", query = "SELECT l FROM Login l WHERE l.nama = :nama"),
     @NamedQuery(name = "Login.findByUsername", query = "SELECT l FROM Login l WHERE l.username = :username"),
     @NamedQuery(name = "Login.findByPassword", query = "SELECT l FROM Login l WHERE l.password = :password")})
@@ -30,8 +30,8 @@ public class Login implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "nomor_induk")
-    private String nomorInduk;
+    @Column(name = "idlogin")
+    private String idlogin;
     @Column(name = "nama")
     private String nama;
     @Column(name = "username")
@@ -42,16 +42,16 @@ public class Login implements Serializable {
     public Login() {
     }
 
-    public Login(String nomorInduk) {
-        this.nomorInduk = nomorInduk;
+    public Login(String idlogin) {
+        this.idlogin = idlogin;
     }
 
-    public String getNomorInduk() {
-        return nomorInduk;
+    public String getIdlogin() {
+        return idlogin;
     }
 
-    public void setNomorInduk(String nomorInduk) {
-        this.nomorInduk = nomorInduk;
+    public void setIdlogin(String idlogin) {
+        this.idlogin = idlogin;
     }
 
     public String getNama() {
@@ -81,7 +81,7 @@ public class Login implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (nomorInduk != null ? nomorInduk.hashCode() : 0);
+        hash += (idlogin != null ? idlogin.hashCode() : 0);
         return hash;
     }
 
@@ -92,7 +92,7 @@ public class Login implements Serializable {
             return false;
         }
         Login other = (Login) object;
-        if ((this.nomorInduk == null && other.nomorInduk != null) || (this.nomorInduk != null && !this.nomorInduk.equals(other.nomorInduk))) {
+        if ((this.idlogin == null && other.idlogin != null) || (this.idlogin != null && !this.idlogin.equals(other.idlogin))) {
             return false;
         }
         return true;
@@ -100,7 +100,7 @@ public class Login implements Serializable {
 
     @Override
     public String toString() {
-        return "utama.Login[ nomorInduk=" + nomorInduk + " ]";
+        return "utama.Login[ idlogin=" + idlogin + " ]";
     }
     
 }

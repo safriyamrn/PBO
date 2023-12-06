@@ -229,7 +229,7 @@ public class Register extends javax.swing.JFrame {
         em.getTransaction().begin();
         Login lg = new Login();
 
-        lg.setNomorInduk(nomor_induk);
+        lg.setIdlogin(nomor_induk);
         lg.setNama(nama);
         lg.setUsername(username);
         lg.setPassword(password);

@@ -4,37 +4,27 @@
  */
 package utama;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
-import javax.swing.JOptionPane;
-import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -43,28 +33,40 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class MenuLaporanBk extends javax.swing.JPanel {
 
-    ArrayList<Buku> dataBuku;
+    ArrayList<Book> dataBuku;
 
     private void tampilkan() {
-        EntityManager entityManager = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
-        entityManager.getTransaction().begin();
-        Query query = entityManager.createQuery("SELECT b FROM Buku b");
-        List<Buku> results = query.getResultList();
-        entityManager.getTransaction().commit();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjectUASPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
+        Root<Book> bukuRoot = cq.from(Book.class);
+        Join<Book, Kategori> kategoriJoin = bukuRoot.join("idkategori", JoinType.INNER); // Sesuaikan dengan nama atribut di entitas Buku_1
+
+        cq.multiselect(
+                bukuRoot.get("isbn"),
+                bukuRoot.get("judul"),
+                kategoriJoin.get("idkategori"),
+                kategoriJoin.get("namakategori").alias("kategori"),
+                bukuRoot.get("pengarang"),
+                bukuRoot.get("penerbit"),
+                bukuRoot.get("tahun"),
+                bukuRoot.get("halamanbuku")
+        );
+
+        List<Object[]> results = em.createQuery(cq).getResultList();
+        em.getTransaction().commit();
+
         DefaultTableModel tbl = (DefaultTableModel) jTableRecordBuku.getModel();
         tbl.setRowCount(0);
-        for (Buku bk : results) {
-            Object[] ob = new Object[7];
-            ob[0] = bk.getIsbn();
-            ob[1] = bk.getjudul_buku();
-            ob[2] = bk.getsub_judul();
-            ob[3] = bk.getPengarang();
-            ob[4] = bk.getPenerbit();
-            ob[5] = bk.gettahun_terbit();
-            ob[6] = bk.getjumlah_halaman();
-            tbl.addRow(ob);
+        for (Object[] row : results) {
+            tbl.addRow(row);
         }
-        entityManager.close();
+
+        em.close();
+        emf.close();
     }
 
     /**
@@ -72,23 +74,8 @@ public class MenuLaporanBk extends javax.swing.JPanel {
      */
     // private Timer refreshTimer;
     public MenuLaporanBk() {
-        //        try {
-//            dataBuku = new ArrayList<>();
         initComponents();
-//            Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/login", "postgres", "bismillah@");
         tampilkan();
-//            
-//            // Membuat dan mengatur timer untuk auto-refresh setiap 5 detik (5000 milidetik)
-//        refreshTimer = new Timer(1000, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                tampilkan();
-//            }
-//        });
-//        refreshTimer.start();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(MenuBuku.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
     @SuppressWarnings("unchecked")
@@ -114,7 +101,7 @@ public class MenuLaporanBk extends javax.swing.JPanel {
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel7.setText("UTAMA > Buku");
+        jLabel7.setText("CETAK LAPORAN > Buku");
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/dashboard_1.png"))); // NOI18N
@@ -125,13 +112,13 @@ public class MenuLaporanBk extends javax.swing.JPanel {
 
         jTableRecordBuku.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ISBN", "Judul Buku", "Sub Judul ", "Pengarang", "Penerbit", "Tahun Terbit", "Jumlah Halaman"
+                "ISBN", "Judul Buku", "ID Kategori", "Kategori", "Pengarang", "Penerbit", "Tahun Terbit", "Jumlah Halaman"
             }
         ));
         jTableRecordBuku.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -160,7 +147,7 @@ public class MenuLaporanBk extends javax.swing.JPanel {
 
         jComboBoxSearch.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jComboBoxSearch.setForeground(new java.awt.Color(153, 153, 153));
-        jComboBoxSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ISBN", "Judul Buku", "Sub Judul", "Pengarang", "Penerbit", "Tahun Terbit" }));
+        jComboBoxSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ISBN", "Judul Buku", "Kategori", "Pengarang", "Penerbit", "Tahun Terbit", "Jumlah Halaman" }));
         jComboBoxSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxSearchActionPerformed(evt);
@@ -202,15 +189,15 @@ public class MenuLaporanBk extends javax.swing.JPanel {
                                 .addGap(143, 514, Short.MAX_VALUE)
                                 .addGroup(jPanelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jComboBoxSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanelViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(jPanelViewLayout.createSequentialGroup()
-                                            .addComponent(jLabel8)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanelViewLayout.createSequentialGroup()
-                                            .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addGroup(jPanelViewLayout.createSequentialGroup()
+                                        .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanelViewLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(20, 20, 20))))
         );
         jPanelViewLayout.setVerticalGroup(
@@ -250,29 +237,29 @@ public class MenuLaporanBk extends javax.swing.JPanel {
 
     private void jTableRecordBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableRecordBukuMouseClicked
 
-        try {
-            EntityManager entityManager = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
-            entityManager.getTransaction().begin();
-
-            int row = jTableRecordBuku.getSelectedRow();
-            String tabel_klik = (jTableRecordBuku.getModel().getValueAt(row, 0).toString());
-
-            // Ubah kode di bawah ini untuk mencari data yang diinginkan
-            Buku z = entityManager.find(Buku.class, tabel_klik);
-            if (z != null) {
-                String isbn = z.getIsbn();
-                String judulBuku = z.getjudul_buku();
-                String subJudul = z.getsub_judul();
-                String pengarang = z.getPengarang();
-                String penerbit = z.getPenerbit();
-                String tahunTerbit = z.gettahun_terbit();
-                String jumlahHalaman = z.getjumlah_halaman();
-            }
-
-            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            // Handle exceptions appropriately
-        }
+//        try {
+//            EntityManager entityManager = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
+//            entityManager.getTransaction().begin();
+//
+//            int row = jTableRecordBuku.getSelectedRow();
+//            String tabel_klik = (jTableRecordBuku.getModel().getValueAt(row, 0).toString());
+//
+//            // Ubah kode di bawah ini untuk mencari data yang diinginkan
+//            Book z = entityManager.find(Book.class, tabel_klik);
+//            if (z != null) {
+//                String isbn = z.getIsbn();
+//                String judulBuku = z.getJudul();
+//                String kategori = z.ge();
+//                String pengarang = z.getPengarang();
+//                String penerbit = z.getPenerbit();
+//                String tahunTerbit = z.gettahun_terbit();
+//                String jumlahHalaman = z.getjumlah_halaman();
+//            }
+//
+//            entityManager.getTransaction().commit();
+//        } catch (Exception e) {
+//            // Handle exceptions appropriately
+//        }
     }//GEN-LAST:event_jTableRecordBukuMouseClicked
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
@@ -285,7 +272,7 @@ public class MenuLaporanBk extends javax.swing.JPanel {
                 getdataJudul(s);
                 break;
             case 2:
-                getdataSubJudul(s);
+                getdataKategori(s);
                 break;
             case 3:
                 getdataPengarang(s);
@@ -299,7 +286,6 @@ public class MenuLaporanBk extends javax.swing.JPanel {
             case 6:
                 getdataJumlahHalaman(s);
                 break;
-
         }
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
@@ -318,54 +304,23 @@ public class MenuLaporanBk extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldSearchFocusLost
 
     private void jButtonCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCetakActionPerformed
-//        String reportPath = "src/utama/reportBukuIsco.jrxml";
-//        //awal persistence 
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjectUASPU");
-//        EntityManager em = emf.createEntityManager();
-//        em.getTransaction().begin();
-//        
-//        CriteriaBuilder cb = em.getCriteriaBuilder();
-//        CriteriaQuery<Buku> cq = cb.createQuery (Buku.class);
-//        Root<Buku> bok = cq.from(Buku.class);
-//        cq.select(bok);
-//        
-//        TypedQuery<Buku> q = em.createQuery(cq); 
-//        Query query = em.createQuery("SELECT b FROM Buku b");
-//        List<Buku> result = query.getResultList();
-//        
-//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource (result);
-//        
-//        
-//        try {
-//            // TODO add your handling code here:
-//            JasperReport jr = JasperCompileManager.compileReport(reportPath);
-//            JasperPrint jp = JasperFillManager.fillReport(jr, null, dataSource);
-//            JasperViewer vw = new JasperViewer (jp, false);
-//            vw.setVisible(true);
-//        } catch (JRException ex) {
-//            Logger.getLogger(MenuLaporanBk.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//        em.getTransaction().commit();
-//        em.close();
-//        emf.close();
-
         try {
-            String reportPath = "src/utama/reportBukuIsco.jrxml";
+            String reportPath = "src/utama/ReportBuku.jrxml";
             String searchTerm = jTextFieldSearch.getText().trim();
+            String selection = (String) jComboBoxSearch.getSelectedItem();
 
             // Building the JPA query dynamically based on the selected criteria
-            String queryString = "SELECT b FROM Buku b WHERE ";
+            String queryString = "SELECT b FROM Book b WHERE ";
 
             switch (jComboBoxSearch.getSelectedIndex()) {
                 case 0:
                     queryString += "LOWER(b.isbn) LIKE LOWER(:searchTerm)";
                     break;
                 case 1:
-                    queryString += "LOWER(b.judulBuku) LIKE LOWER(:searchTerm)";
+                    queryString += "LOWER(b.judul) LIKE LOWER(:searchTerm)";
                     break;
                 case 2:
-                    queryString += "LOWER(b.subJudul) LIKE LOWER(:searchTerm)";
+                    queryString += "LOWER(b.idkategori) LIKE LOWER(:searchTerm)";
                     break;
                 case 3:
                     queryString += "LOWER(b.pengarang) LIKE LOWER(:searchTerm)";
@@ -373,9 +328,9 @@ public class MenuLaporanBk extends javax.swing.JPanel {
                 case 4:
                     queryString += "LOWER(b.penerbit) LIKE LOWER (:searchTerm)";
                 case 5:
-                    queryString += "LOWER(b.tahunTerbit) LIKE LOWER (:searchTerm)";
+                    queryString += "LOWER(b.tahun) LIKE LOWER (:searchTerm)";
                 case 6:
-                    queryString += "LOWER(b.jumlahHalaman) LIKE LOWER (:searchTerm)";
+                    queryString += "LOWER(b.halamanbuku) LIKE LOWER (:searchTerm)";
                 default:
                     throw new IllegalArgumentException("Invalid search criteria selected.");
             }
@@ -386,8 +341,8 @@ public class MenuLaporanBk extends javax.swing.JPanel {
 
             // Creating a CriteriaBuilder instance to create the query
             CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Buku> cq = cb.createQuery(Buku.class);
-            Root<Buku> bookRoot = cq.from(Buku.class);
+            CriteriaQuery<Book> cq = cb.createQuery(Book.class);
+            Root<Book> bookRoot = cq.from(Book.class);
             cq.select(bookRoot);
 
             // Check if WHERE clause is not empty
@@ -395,9 +350,9 @@ public class MenuLaporanBk extends javax.swing.JPanel {
                 throw new IllegalArgumentException("No search criteria selected.");
             }
 
-            TypedQuery<Buku> query = em.createQuery(queryString, Buku.class);
-                query.setParameter("searchTerm", "%" + searchTerm + "%");
-            List<Buku> results = query.getResultList();
+            TypedQuery<Book> query = em.createQuery(queryString, Book.class);
+            query.setParameter("searchTerm", "%" + searchTerm + "%");
+            List<Book> results = query.getResultList();
 
             em.getTransaction().commit();
             em.close();
@@ -405,30 +360,33 @@ public class MenuLaporanBk extends javax.swing.JPanel {
 
             // Prepare data for the report
             List<Object[]> data = new ArrayList<>();
-            for (Buku result : results) {
+            for (Book result : results) {
                 Object[] rowData = {
                     result.getIsbn(),
-                    result.getjudul_buku(),
-                    result.getsub_judul(),
+                    result.getJudul(),
+                    result.getIdkategori(),
                     result.getPengarang(),
                     result.getPenerbit(),
-                    result.gettahun_terbit(),
-                    result.getjumlah_halaman()
+                    result.getTahun(),
+                    result.getHalamanbuku()
                 };
                 data.add(rowData);
             }
+            Map<String, Object> parameter = new HashMap<>();
+            parameter.put("querySearch", searchTerm);
+            parameter.put("searchBy", selection);
 
             // Create a JRBeanCollectionDataSource for JasperReports from the search results data
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(results);
 
             // Load the report design file (*.jrxml)
             JasperReport jasperReport = JasperCompileManager.compileReport(reportPath);
-            JasperPrint print = JasperFillManager.fillReport(jasperReport, null, dataSource);
+            JasperPrint print = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
             JasperViewer viewer = new JasperViewer(print, false);
             viewer.setVisible(true);
 
         } catch (JRException | IllegalArgumentException ex) {
-            Logger.getLogger(MenuLaporanBk.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuLaporanBk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonCetakActionPerformed
 
@@ -450,186 +408,277 @@ public class MenuLaporanBk extends javax.swing.JPanel {
     void ambildata() {
         EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
         em.getTransaction().begin();
-        Query query = em.createQuery("SELECT b FROM Buku b");
-        List<Buku> list = query.getResultList();
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
+        Root<Book> bukuRoot = cq.from(Book.class);
+        Join<Book, Kategori> kategoriJoin = bukuRoot.join("idkategori", JoinType.INNER); // Sesuaikan dengan nama atribut di entitas Buku_1
+
+        cq.multiselect(
+                bukuRoot.get("isbn"),
+                bukuRoot.get("judul"),
+                kategoriJoin.get("idkategori"),
+                kategoriJoin.get("namakategori").alias("kategori"), // Mengakses atribut nama dari objek Kategori_1
+                bukuRoot.get("pengarang"),
+                bukuRoot.get("penerbit"),
+                bukuRoot.get("tahun"),
+                bukuRoot.get("halamanbuku")
+        );
+
+        List<Object[]> results = em.createQuery(cq).getResultList();
         em.getTransaction().commit();
         em.close();
-        DefaultTableModel tb = (DefaultTableModel) jTableRecordBuku.getModel();
-        tb.setRowCount(0);
-        for (Buku b : list) {
-            Object[] ob = new Object[7];
-            ob[0] = b.getIsbn();
-            ob[1] = b.getjudul_buku();
-            ob[2] = b.getsub_judul();
-            ob[3] = b.getPengarang();
-            ob[4] = b.getPenerbit();
-            ob[5] = b.gettahun_terbit();
-            ob[6] = b.getjumlah_halaman();
-            tb.addRow(ob);
+
+        DefaultTableModel tbl = (DefaultTableModel) jTableRecordBuku.getModel();
+        tbl.setRowCount(0);
+        int i = 1;
+        for (Object[] row : results) {
+            tbl.addRow(row);
+            i++;
         }
     }
 
     void getdataIsbn(String isbn) {
         EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
         em.getTransaction().begin();
-        Query query = em.createQuery("SELECT b FROM Buku b WHERE LOWER(b.isbn) = :isbn");
-        query.setParameter("isbn", "%" + isbn.toLowerCase() + "%");
-        List<Buku> list = query.getResultList();
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
+        Root<Book> bukuRoot = cq.from(Book.class);
+        Join<Book, Kategori> kategoriJoin = bukuRoot.join("idkategori", JoinType.INNER); // Sesuaikan dengan nama atribut di entitas Buku_1
+
+        cq.multiselect(
+                bukuRoot.get("isbn"),
+                bukuRoot.get("judul"),
+                kategoriJoin.get("idkategori"),
+                kategoriJoin.get("namakategori").alias("kategori"), // Mengakses atribut nama dari objek Kategori_1
+                bukuRoot.get("pengarang"),
+                bukuRoot.get("penerbit"),
+                bukuRoot.get("tahun"),
+                bukuRoot.get("halamanbuku")
+        );
+
+        cq.where(cb.like(cb.lower(bukuRoot.get("isbn")), "%" + isbn.toLowerCase() + "%"));
+
+        List<Object[]> results = em.createQuery(cq).getResultList();
         em.getTransaction().commit();
         em.close();
-        DefaultTableModel tb = (DefaultTableModel) jTableRecordBuku.getModel();
-        tb.setRowCount(0);
-        for (Buku b : list) {
-            Object[] ob = new Object[7];
-            ob[0] = b.getIsbn();
-            ob[1] = b.getjudul_buku();
-            ob[2] = b.getsub_judul();
-            ob[3] = b.getPengarang();
-            ob[4] = b.getPenerbit();
-            ob[5] = b.gettahun_terbit();
-            ob[6] = b.getjumlah_halaman();
-            tb.addRow(ob);
+
+        DefaultTableModel tbl = (DefaultTableModel) jTableRecordBuku.getModel();
+        tbl.setRowCount(0);
+        int i = 1;
+        for (Object[] row : results) {
+            tbl.addRow(row);
+            i++;
         }
     }
 
-    void getdataJudul(String judulBuku) {
+    void getdataJudul(String judul) {
         EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
         em.getTransaction().begin();
-        Query query = em.createQuery("SELECT b FROM Buku b WHERE LOWER(b.judulBuku) LIKE :judulBuku");
-        query.setParameter("judulBuku", "%" + judulBuku.toLowerCase() + "%");
-        List<Buku> list = query.getResultList();
-        em.getTransaction().commit();
-        em.close();
-        DefaultTableModel tb = (DefaultTableModel) jTableRecordBuku.getModel();
-        tb.setRowCount(0);
-        for (Buku b : list) {
-            Object[] ob = new Object[7];
-            ob[0] = b.getIsbn();
-            ob[1] = b.getjudul_buku();
-            ob[2] = b.getsub_judul();
-            ob[3] = b.getPengarang();
-            ob[4] = b.getPenerbit();
-            ob[5] = b.gettahun_terbit();
-            ob[6] = b.getjumlah_halaman();
-            tb.addRow(ob);
-        }
-    }
 
-    void getdataSubJudul(String subJudul) {
-        EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
-        em.getTransaction().begin();
-        Query query = em.createQuery("SELECT b FROM Buku b WHERE LOWER(b.subJudul) LIKE :subJudul");
-        query.setParameter("subJudul", "%" + subJudul.toLowerCase() + "%");
-        List<Buku> list = query.getResultList();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
+        Root<Book> bukuRoot = cq.from(Book.class);
+        Join<Book, Kategori> kategoriJoin = bukuRoot.join("idkategori", JoinType.INNER); // Sesuaikan dengan nama atribut di entitas Buku_1
+
+        cq.multiselect(
+                bukuRoot.get("isbn"),
+                bukuRoot.get("judul"),
+                kategoriJoin.get("idkategori"),
+                kategoriJoin.get("namakategori").alias("kategori"), // Mengakses atribut nama dari objek Kategori_1
+                bukuRoot.get("pengarang"),
+                bukuRoot.get("penerbit"),
+                bukuRoot.get("tahun"),
+                bukuRoot.get("halamanbuku")
+        );
+
+        cq.where(cb.like(cb.lower(bukuRoot.get("judul")), "%" + judul.toLowerCase() + "%"));
+
+        List<Object[]> results = em.createQuery(cq).getResultList();
         em.getTransaction().commit();
         em.close();
-        DefaultTableModel tb = (DefaultTableModel) jTableRecordBuku.getModel();
-        tb.setRowCount(0);
-        for (Buku b : list) {
-            Object[] ob = new Object[7];
-            ob[0] = b.getIsbn();
-            ob[1] = b.getjudul_buku();
-            ob[2] = b.getsub_judul();
-            ob[3] = b.getPengarang();
-            ob[4] = b.getPenerbit();
-            ob[5] = b.gettahun_terbit();
-            ob[6] = b.getjumlah_halaman();
-            tb.addRow(ob);
+
+        DefaultTableModel tbl = (DefaultTableModel) jTableRecordBuku.getModel();
+        tbl.setRowCount(0);
+        int i = 1;
+        for (Object[] row : results) {
+            tbl.addRow(row);
+            i++;
         }
     }
 
     void getdataPengarang(String pengarang) {
         EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
         em.getTransaction().begin();
-        Query query = em.createQuery("SELECT b FROM Buku b WHERE LOWER(b.pengarang) LIKE :pengarang");
-        query.setParameter("pengarang", "%" + pengarang.toLowerCase() + "%");
-        List<Buku> list = query.getResultList();
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
+        Root<Book> bukuRoot = cq.from(Book.class);
+        Join<Book, Kategori> kategoriJoin = bukuRoot.join("idkategori", JoinType.INNER);
+
+        cq.multiselect(
+                bukuRoot.get("isbn"),
+                bukuRoot.get("judul"),
+                kategoriJoin.get("idkategori"),
+                kategoriJoin.get("namakategori").alias("kategori"),
+                bukuRoot.get("pengarang"),
+                bukuRoot.get("penerbit"),
+                bukuRoot.get("tahun"),
+                bukuRoot.get("halamanbuku")
+        );
+
+        cq.where(cb.like(cb.lower(bukuRoot.get("pengarang")), "%" + pengarang.toLowerCase() + "%"));
+
+        List<Object[]> results = em.createQuery(cq).getResultList();
         em.getTransaction().commit();
         em.close();
-        DefaultTableModel tb = (DefaultTableModel) jTableRecordBuku.getModel();
-        tb.setRowCount(0);
-        for (Buku b : list) {
-            Object[] ob = new Object[7];
-            ob[0] = b.getIsbn();
-            ob[1] = b.getjudul_buku();
-            ob[2] = b.getsub_judul();
-            ob[3] = b.getPengarang();
-            ob[4] = b.getPenerbit();
-            ob[5] = b.gettahun_terbit();
-            ob[6] = b.getjumlah_halaman();
-            tb.addRow(ob);
+
+        DefaultTableModel tbl = (DefaultTableModel) jTableRecordBuku.getModel();
+        tbl.setRowCount(0);
+        int i = 1;
+        for (Object[] row : results) {
+            tbl.addRow(row);
+            i++;
         }
     }
 
     void getdataPenerbit(String penerbit) {
         EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
         em.getTransaction().begin();
-        Query query = em.createQuery("SELECT b FROM Buku b WHERE LOWER(b.penerbit) LIKE :penerbit");
-        query.setParameter("penerbit", "%" + penerbit.toLowerCase() + "%");
-        List<Buku> list = query.getResultList();
-        em.getTransaction().commit();
-        em.close();
-        DefaultTableModel tb = (DefaultTableModel) jTableRecordBuku.getModel();
-        tb.setRowCount(0);
-        for (Buku b : list) {
-            Object[] ob = new Object[7];
-            ob[0] = b.getIsbn();
-            ob[1] = b.getjudul_buku();
-            ob[2] = b.getsub_judul();
-            ob[3] = b.getPengarang();
-            ob[4] = b.getPenerbit();
-            ob[5] = b.gettahun_terbit();
-            ob[6] = b.getjumlah_halaman();
-            tb.addRow(ob);
-        }
-    }
 
-    void getdataTahunTerbit(String tahunTerbit) {
-        EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
-        em.getTransaction().begin();
-        Query query = em.createQuery("SELECT b FROM Buku b WHERE LOWER(b.tahunTerbit) LIKE :tahunTerbit");
-        query.setParameter("tahunTerbit", "%" + tahunTerbit.toLowerCase() + "%");
-        List<Buku> list = query.getResultList();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
+        Root<Book> bukuRoot = cq.from(Book.class);
+        Join<Book, Kategori> kategoriJoin = bukuRoot.join("idkategori", JoinType.INNER);
+
+        cq.multiselect(
+                bukuRoot.get("isbn"),
+                bukuRoot.get("judul"),
+                kategoriJoin.get("idkategori"),
+                kategoriJoin.get("namakategori").alias("kategori"),
+                bukuRoot.get("pengarang"),
+                bukuRoot.get("penerbit"),
+                bukuRoot.get("tahun"),
+                bukuRoot.get("halamanbuku")
+        );
+
+        cq.where(cb.like(cb.lower(bukuRoot.get("penerbit")), "%" + penerbit.toLowerCase() + "%"));
+
+        List<Object[]> results = em.createQuery(cq).getResultList();
         em.getTransaction().commit();
         em.close();
-        DefaultTableModel tb = (DefaultTableModel) jTableRecordBuku.getModel();
-        tb.setRowCount(0);
+
+        DefaultTableModel tbl = (DefaultTableModel) jTableRecordBuku.getModel();
+        tbl.setRowCount(0);
         int i = 1;
-        for (Buku b : list) {
-            Object[] ob = new Object[7];
-            ob[0] = b.getIsbn();
-            ob[1] = b.getjudul_buku();
-            ob[2] = b.getsub_judul();
-            ob[3] = b.getPengarang();
-            ob[4] = b.getPenerbit();
-            ob[5] = b.gettahun_terbit();
-            ob[6] = b.getjumlah_halaman();
-            tb.addRow(ob);
+        for (Object[] row : results) {
+            tbl.addRow(row);
             i++;
         }
     }
 
-    void getdataJumlahHalaman(String jumlahHalaman) {
+    void getdataTahunTerbit(String tahun) {
         EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
         em.getTransaction().begin();
-        Query query = em.createQuery("SELECT b FROM Buku b WHERE LOWER(b.jumlahHalaman) LIKE :jumlahHalaman");
-        query.setParameter("jumlahHalaman", "%" + jumlahHalaman.toLowerCase() + "%");
-        List<Buku> list = query.getResultList();
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
+        Root<Book> bukuRoot = cq.from(Book.class);
+        Join<Book, Kategori> kategoriJoin = bukuRoot.join("idkategori", JoinType.INNER);
+
+        cq.multiselect(
+                bukuRoot.get("isbn"),
+                bukuRoot.get("judul"),
+                kategoriJoin.get("idkategori"),
+                kategoriJoin.get("namakategori").alias("kategori"),
+                bukuRoot.get("pengarang"),
+                bukuRoot.get("penerbit"),
+                bukuRoot.get("tahun"),
+                bukuRoot.get("halamanbuku")
+        );
+
+        cq.where(cb.like(cb.lower(bukuRoot.get("tahun")), "%" + tahun.toLowerCase() + "%"));
+
+        List<Object[]> results = em.createQuery(cq).getResultList();
         em.getTransaction().commit();
         em.close();
-        DefaultTableModel tb = (DefaultTableModel) jTableRecordBuku.getModel();
-        tb.setRowCount(0);
+
+        DefaultTableModel tbl = (DefaultTableModel) jTableRecordBuku.getModel();
+        tbl.setRowCount(0);
         int i = 1;
-        for (Buku b : list) {
-            Object[] ob = new Object[7];
-            ob[0] = b.getIsbn();
-            ob[1] = b.getjudul_buku();
-            ob[2] = b.getsub_judul();
-            ob[3] = b.getPengarang();
-            ob[4] = b.getPenerbit();
-            ob[5] = b.gettahun_terbit();
-            ob[6] = b.getjumlah_halaman();
-            tb.addRow(ob);
+        for (Object[] row : results) {
+            tbl.addRow(row);
+            i++;
+        }
+    }
+
+    void getdataJumlahHalaman(String halamanbuku) {
+        EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
+        em.getTransaction().begin();
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
+        Root<Book> bukuRoot = cq.from(Book.class);
+        Join<Book, Kategori> kategoriJoin = bukuRoot.join("idkategori", JoinType.INNER);
+
+        cq.multiselect(
+                bukuRoot.get("isbn"),
+                bukuRoot.get("judul"),
+                kategoriJoin.get("idkategori"),
+                kategoriJoin.get("namakategori").alias("kategori"),
+                bukuRoot.get("pengarang"),
+                bukuRoot.get("penerbit"),
+                bukuRoot.get("tahun"),
+                bukuRoot.get("halamanbuku")
+        );
+
+        cq.where(cb.like(cb.lower(bukuRoot.get("halamanbuku")), "%" + halamanbuku.toLowerCase() + "%"));
+
+        List<Object[]> results = em.createQuery(cq).getResultList();
+        em.getTransaction().commit();
+        em.close();
+
+        DefaultTableModel tbl = (DefaultTableModel) jTableRecordBuku.getModel();
+        tbl.setRowCount(0);
+        int i = 1;
+        for (Object[] row : results) {
+            tbl.addRow(row);
+            i++;
+        }
+    }
+
+    private void getdataKategori(String kategori) {
+        EntityManager em = Persistence.createEntityManagerFactory("ProjectUASPU").createEntityManager();
+        em.getTransaction().begin();
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
+        Root<Book> bukuRoot = cq.from(Book.class);
+        Join<Book, Kategori> kategoriJoin = bukuRoot.join("idkategori", JoinType.INNER); // Sesuaikan dengan nama atribut di entitas Buku
+
+        cq.multiselect(
+                bukuRoot.get("isbn"),
+                bukuRoot.get("judul"),
+                kategoriJoin.get("idkategori"),
+                kategoriJoin.get("namakategori").alias("kategori"), // Mengakses atribut nama dari objek Kategori
+                bukuRoot.get("pengarang"),
+                bukuRoot.get("penerbit"),
+                bukuRoot.get("tahun"),
+                bukuRoot.get("halamanbuku")
+        );
+
+        cq.where(cb.like(cb.lower(kategoriJoin.get("namakategori")), "%" + kategori.toLowerCase() + "%"));
+
+        List<Object[]> results = em.createQuery(cq).getResultList();
+        em.getTransaction().commit();
+        em.close();
+
+        DefaultTableModel tbl = (DefaultTableModel) jTableRecordBuku.getModel();
+        tbl.setRowCount(0);
+        int i = 1;
+        for (Object[] row : results) {
+            tbl.addRow(row);
             i++;
         }
     }
