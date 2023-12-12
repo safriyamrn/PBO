@@ -7,6 +7,10 @@ ISCO adalah aplikasi yang digunakan untuk manajemen sumbangan buku, peminjaman, 
 - Dapat melakukan transaksi peminjaman
 - Menambahkan, menghapus, mengupdate, dan mencetak laporan data buku dan skripsi
 - Koneksi database menggunakan persistence
+- Dapat mencetak laporan peminjaman terbanyak
+- Dapat mencetak laporan peminjaman bulanan
+- Mencetak laporan buku dan skripsi berdasarkan angkatan
+- Mencetak laporan buku dengan berdasarkan kategori yang paling banyak dipinjam
 
 ## PREVIEW 
 1. Tampilan Login
